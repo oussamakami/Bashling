@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 21:01:37 by okamili           #+#    #+#             */
-/*   Updated: 2022/10/07 00:06:03 by okamili          ###   ########.fr       */
+/*   Updated: 2023/04/23 07:46:34 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 	src_holder = (unsigned char *) src;
 	dst_holder = (unsigned char *) dst;
-	if (!src_holder && !dst_holder)
+	if (!dst_holder || (!src_holder && !dst_holder))
 		return (NULL);
+	if (!src_holder)
+		return (dst_holder);
 	counter = 0;
 	while (counter < n)
 	{
