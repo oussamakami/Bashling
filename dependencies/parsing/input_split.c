@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:40:21 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/04 23:51:52 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/05 00:45:55 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,8 @@ static int	command_length(char *str)
 	while (str[0])
 	{
 		length++;
-		if (ft_strchr(";|&", str[0]) && (!(dquotes & 1) && !(squotes & 1)))
-		{
-			if (ft_strchr(";|&", str[0]) && ft_strchr(";|&", str[1]))
-			{
-				if (ft_strchr(";|&", str[2]))
-					return (length + 2);
-				return (length + 1);
-			}
+		if (ft_strchr(";|", str[0]) && (!(dquotes & 1) && !(squotes & 1)))
 			return (length);
-		}
 		dquotes += (str[0] == '"');
 		squotes += (str[0] == '\'');
 		str++;
