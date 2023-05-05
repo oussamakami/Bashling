@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:40:21 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/05 00:45:55 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/05 18:38:38 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ t_cmd	*input_split(char *input)
 				allocate_cmd_node(ft_strtrim(temp, "\t ")));
 		input += ft_strlen(temp);
 		free(temp);
+	}
+	if (check_separator(result))
+	{
+		free_cmd_tree(result);
+		return (NULL);
 	}
 	return (result);
 }

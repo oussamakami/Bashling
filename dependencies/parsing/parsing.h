@@ -74,5 +74,6 @@ void	free_cmd_tree(t_cmd *head);
 
 
 t_cmd *input_split(char *input);
+int check_separator(t_cmd *cmd);
 
 #endif
