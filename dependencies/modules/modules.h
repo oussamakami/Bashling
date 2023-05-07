@@ -1,5 +1,5 @@
 #ifndef MODULES_H
-# define MODULES_h
+# define MODULES_H
 
 # include "../libft/libft.h"
 
