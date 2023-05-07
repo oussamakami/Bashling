@@ -8,14 +8,13 @@
 
 typedef struct cmd_data
 {
-	char			*whole_cmd;
 	char			*cmd;
-	char			*options;
-	char			*args;
-	char			*redirection_file;
-	char			*redirection_symbols;
-	int				usepipe;
-	char			*parsing_error;
+	char			*exec;
+	char			**args;
+	char			**redir_files;
+	char			**redir_sym;
+	char			*sep;
+	int				error;
 	struct cmd_data	*next;
 }	t_cmd;
 

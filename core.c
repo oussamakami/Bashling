@@ -10,9 +10,10 @@ int main() {
 		cmds = input_split(input);
 		while (cmds)
 		{
-			printf("%d= %s\n", ++i, cmds->whole_cmd);
+			printf("%d= %s\n", ++i, cmds->cmd);
 			cmds = remove_cmd_from_tree(cmds, cmds);
 		}
+		i = 0;
 		free(input);
     }
     return 0;

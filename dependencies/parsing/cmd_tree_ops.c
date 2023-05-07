@@ -5,14 +5,13 @@ t_cmd *allocate_cmd_node(char *whole_command)
 	t_cmd *result;
 
 	result = malloc(sizeof(t_cmd));
-	result->whole_cmd = whole_command;
-	result->cmd = NULL;
-	result->options = NULL;
+	result->cmd = whole_command;
+	result->exec = NULL;
 	result->args = NULL;
-	result->redirection_file = NULL;
-	result->redirection_symbols = NULL;
-	result->usepipe = 0;
-	result->parsing_error = NULL;
+	result->redir_files = NULL;
+	result->redir_sym = NULL;
+	result->sep = NULL;
+	result->error =0;
 	result->next = NULL;
 	return (result);
 }
@@ -61,13 +60,13 @@ void	erase_cmd_node(t_cmd *cmd_pointer)
 {
 	if (cmd_pointer)
 	{
-		free(cmd_pointer->whole_cmd);
 		free(cmd_pointer->cmd);
-		free(cmd_pointer->options);
+		free(cmd_pointer->exec);
+		//args is a 2d array, still need its own func to free it
 		free(cmd_pointer->args);
-		free(cmd_pointer->redirection_file);
-		free(cmd_pointer->redirection_symbols);
-		free(cmd_pointer->parsing_error);
+		free(cmd_pointer->redir_files);
+		free(cmd_pointer->redir_sym);
+		free(cmd_pointer->sep);
 		free(cmd_pointer);
 	}
 }

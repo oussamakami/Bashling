@@ -25,28 +25,28 @@ static char	*get_separator(char *str)
 			result[index++] = str[0];
 			result = ft_realloc(result, ft_strlen(result) + 2);
 		}
-		dquotes += (str[0] == '"');
-		squotes += (str[0] == '\'');
+		dquotes += (!(squotes & 1) && str[0] == '"');
+		squotes += (!(dquotes & 1) && str[0] == '\'');
 		str++;
 	}
 	return (result);
 }
 
-int	check_separator(t_cmd *cmd)
+int	check_separator(t_cmd *cmds)
 {
 	char	*temp;
 
-	while (cmd)
+	while (cmds)
 	{
-		temp = get_separator(cmd->whole_cmd);
-		if (ft_strlen(temp) == ft_strlen(cmd->whole_cmd))
+		temp = get_separator(cmds->cmd);
+		if (ft_strlen(temp) == ft_strlen(cmds->cmd) || (temp[0] == '|' && !cmds->next))
 		{
 			print_error(temp);
 			free(temp);
 			return (1);
 		}
 		free(temp);
-		cmd = cmd->next;
+		cmds = cmds->next;
 	}
 	return (0);
 }
