@@ -6,11 +6,41 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:40:21 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/08 00:05:42 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/08 00:50:36 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+static int	check_quotes_loop(char *str)
+{
+	int	dquotes;
+	int	squotes;
+
+	dquotes = 0;
+	squotes = 0;
+	while (str[0])
+	{
+		dquotes += (!(squotes & 1) && str[0] == '"');
+		squotes += (!(dquotes & 1) && str[0] == '\'');
+		str++;
+	}
+	return ((squotes & 1) || (dquotes & 1));
+}
+
+static int	check_quotes(t_cmd *cmds)
+{
+	while (cmds)
+	{
+		if (check_quotes_loop(cmds->cmd))
+		{
+			ft_putstr_fd("minishell: Syntax error: Missing closing quote.\n", 2);
+			return (1);
+		}
+		cmds = cmds->next;
+	}
+	return (0);
+}
 
 static int	command_length(char *str)
 {
@@ -47,7 +77,7 @@ t_cmd	*input_split(char *input)
 		input += ft_strlen(temp);
 		free(temp);
 	}
-	if (check_separator(result))
+	if (check_separator(result) || check_quotes(result))
 	{
 		free_cmd_tree(result);
 		return (NULL);

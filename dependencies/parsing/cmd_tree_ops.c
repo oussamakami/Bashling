@@ -1,8 +1,20 @@
-# include "parsing.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_tree_ops.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/08 00:52:06 by okamili           #+#    #+#             */
+/*   Updated: 2023/05/08 00:52:56 by okamili          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_cmd *allocate_cmd_node(char *whole_command)
+#include "parsing.h"
+
+t_cmd	*allocate_cmd_node(char *whole_command)
 {
-	t_cmd *result;
+	t_cmd	*result;
 
 	result = malloc(sizeof(t_cmd));
 	result->cmd = whole_command;
@@ -11,7 +23,7 @@ t_cmd *allocate_cmd_node(char *whole_command)
 	result->redir_files = NULL;
 	result->redir_sym = NULL;
 	result->sep = NULL;
-	result->error =0;
+	result->error = 0;
 	result->next = NULL;
 	return (result);
 }
@@ -33,7 +45,7 @@ t_cmd	*previous_cmd_node(t_cmd *head, t_cmd *current_node)
 	return (head);
 }
 
-t_cmd *append_cmd_to_tree(t_cmd *head, t_cmd *new_command)
+t_cmd	*append_cmd_to_tree(t_cmd *head, t_cmd *new_command)
 {
 	if (head)
 	{
@@ -43,9 +55,9 @@ t_cmd *append_cmd_to_tree(t_cmd *head, t_cmd *new_command)
 	return (new_command);
 }
 
-t_cmd *remove_cmd_from_tree(t_cmd *head, t_cmd *todelete)
+t_cmd	*remove_cmd_from_tree(t_cmd *head, t_cmd *todelete)
 {
-	t_cmd *temp;
+	t_cmd	*temp;
 
 	temp = previous_cmd_node(head, todelete);
 	if (temp)
@@ -71,7 +83,7 @@ void	erase_cmd_node(t_cmd *cmd_pointer)
 	}
 }
 
-void free_cmd_tree(t_cmd *head)
+void	free_cmd_tree(t_cmd *head)
 {
 	while (head)
 		head = remove_cmd_from_tree(head, head);

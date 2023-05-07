@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
+/*   Updated: 2023/05/08 00:51:47 by okamili          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
@@ -31,7 +43,7 @@ t_cmd	*allocate_cmd_node(char *whole_command);
  * @param head Reference to the beginning of the t_cmd tree.
  * @return t_cmd* Reference to the last node.
  */
-t_cmd 	*last_cmd_node(t_cmd *head);
+t_cmd	*last_cmd_node(t_cmd *head);
 /**
  * @brief Locate the node that is pointing to your current node.
  * 
@@ -49,7 +61,8 @@ t_cmd	*previous_cmd_node(t_cmd *head, t_cmd *current_node);
  */
 t_cmd	*append_cmd_to_tree(t_cmd *head, t_cmd *new_command);
 /**
- * @brief Delete and destroy a node from the t_cmd tree, regardless of whether or not it exists in the tree.
+ * @brief Delete and destroy a node from the t_cmd tree,
+ * regardless of whether or not it exists in the tree.
  * 
  * @param head Reference to the beginning of the t_cmd tree.
  * @param todelete eference to the node you intend to delete.
@@ -68,11 +81,7 @@ void	erase_cmd_node(t_cmd *cmd_pointer);
  * @param head Reference to the beginning of the t_cmd tree.
  */
 void	free_cmd_tree(t_cmd *head);
-
-
-
-
-t_cmd *input_split(char *input);
-int check_separator(t_cmd *cmd);
+t_cmd	*input_split(char *input);
+int		check_separator(t_cmd *cmd);
 
 #endif
