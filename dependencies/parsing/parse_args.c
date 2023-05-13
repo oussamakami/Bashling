@@ -1,6 +1,6 @@
 #include "parsing.h"
 
-char	*next_arg(char *cmd)
+static char	*next_arg(char *cmd)
 {
 	int	dquotes;
 	int	squotes;
@@ -16,7 +16,7 @@ char	*next_arg(char *cmd)
 	return (cmd);
 }
 
-int	args_count(char *cmd)
+static int	args_count(char *cmd)
 {
 	int	count;
 
@@ -38,4 +38,21 @@ int	args_count(char *cmd)
 			cmd++;
 	}
 	return (count);
+}
+
+char **parse_args(char *cmd)
+{
+	int index;
+	int count;
+	char **result;
+
+	index = -1;
+	count = args_count(cmd);
+	result = ft_calloc(count + 1, sizeof(char *));
+	while (++index < count)
+	{
+		result[index] = ft_substr(cmd, 0, (ft_strlen(cmd)-ft_strlen(next_arg(cmd))));
+		cmd = next_arg(cmd);
+	}
+	return (result);
 }
