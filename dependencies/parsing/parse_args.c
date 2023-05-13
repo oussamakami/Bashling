@@ -40,19 +40,32 @@ static int	args_count(char *cmd)
 	return (count);
 }
 
-char **parse_args(char *cmd)
+char	**parse_args(char *cmd)
 {
-	int index;
-	int count;
-	char **result;
+	int		index;
+	int		count;
+	char	**result;
 
 	index = -1;
 	count = args_count(cmd);
 	result = ft_calloc(count + 1, sizeof(char *));
 	while (++index < count)
 	{
-		result[index] = ft_substr(cmd, 0, (ft_strlen(cmd)-ft_strlen(next_arg(cmd))));
-		cmd = next_arg(cmd);
+		result[index] = ft_substr(cmd, 0,
+				(ft_strlen(cmd) - ft_strlen(next_arg(cmd))));
+		while (1)
+		{
+			cmd = next_arg(cmd);
+			while (ft_strchr("\t |;", cmd[0]))
+				cmd++;
+			if (ft_strchr("><", cmd[0]))
+			{
+				while (ft_strchr("\t ><", cmd[0]))
+					cmd++;
+				continue ;
+			}
+			break ;
+		}
 	}
 	return (result);
 }
