@@ -7,7 +7,7 @@ static char	*next_arg(char *cmd)
 
 	dquotes = 0;
 	squotes = 0;
-	while (!ft_strchr("\t ><", cmd[0]) || ((dquotes & 1) || (squotes & 1)))
+	while (!ft_strchr("\t ><|;", cmd[0]) || ((dquotes & 1) || (squotes & 1)))
 	{
 		dquotes += (!(squotes & 1) && cmd[0] == '"');
 		squotes += (!(dquotes & 1) && cmd[0] == '\'');
@@ -46,26 +46,23 @@ char	**parse_args(char *cmd)
 	int		count;
 	char	**result;
 
-	index = -1;
+	index = 0;
 	count = args_count(cmd);
 	result = ft_calloc(count + 1, sizeof(char *));
-	while (++index < count)
+	while (index < count)
 	{
-		result[index] = ft_substr(cmd, 0,
-				(ft_strlen(cmd) - ft_strlen(next_arg(cmd))));
-		while (1)
+		while (cmd[0] && ft_strchr("\t ", cmd[0]))
+			cmd++;
+		if (ft_strchr("><", cmd[0]))
 		{
-			cmd = next_arg(cmd);
-			while (ft_strchr("\t |;", cmd[0]))
+			while (ft_strchr("\t ><", cmd[0]))
 				cmd++;
-			if (ft_strchr("><", cmd[0]))
-			{
-				while (ft_strchr("\t ><", cmd[0]))
-					cmd++;
-				continue ;
-			}
-			break ;
+			cmd = next_arg(cmd);
+			continue ;
 		}
+		result[index++] = ft_substr(cmd, 0,
+				(ft_strlen(cmd) - ft_strlen(next_arg(cmd))));
+		cmd = next_arg(cmd);
 	}
 	return (result);
 }

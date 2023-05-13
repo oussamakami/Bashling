@@ -11,7 +11,7 @@ int main() {
 		cmds = input_split(input);
 		while (cmds)
 		{
-			printf("%s\n", cmds->cmd);
+			printf("command: %s\n", cmds->cmd);
 			temp = parse_args(cmds->cmd);
 			while (temp[i])
 			{
