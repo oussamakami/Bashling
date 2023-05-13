@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/13 05:22:27 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/13 06:43:25 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void	free_cmd_tree(t_cmd *head);
 t_cmd	*input_split(char *input);
 int		check_separator(t_cmd *cmd);
 char **parse_args(char *cmd);
+t_cmd *parsing(char *input);
 
 #endif
