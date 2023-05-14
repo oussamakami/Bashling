@@ -24,7 +24,7 @@ int	main()
 			i = -1;
 			printf("\tredirection:\n");
 			while (cmds->redir_sym[++i])
-				printf("\t\t%d: \"%s\"\n", i, cmds->redir_sym[i]);
+				printf("\t\t%d: \"%s\", \"%s\"\n", i, cmds->redir_sym[i], cmds->redir_files[i]);
 			printf("\tseparator: \"%s\"\n", cmds->sep);
 			printf("======================================\n");
 			cmds = remove_cmd_from_tree(cmds, cmds);

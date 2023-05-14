@@ -10,11 +10,11 @@ t_cmd *parsing(char *input)
 	while (holder)
 	{
 		holder->args = parse_args(holder->cmd);
-		holder->redir_sym = parse_redi(holder->cmd);
 		holder->exec = holder->args[0];
 		if (ft_strchr(";|", holder->cmd[ft_strlen(holder->cmd) - 1]))
 			holder->sep = holder->cmd + (ft_strlen(holder->cmd) - 1);
 		holder = holder->next;
 	}
+	parse_redir(result);
 	return (result);
 }

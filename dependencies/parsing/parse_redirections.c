@@ -1,87 +1,35 @@
 #include "parsing.h"
 
-static char	*next_redi(char *cmd)
-{
-	int	dquotes;
-	int	squotes;
 
-	dquotes = 0;
-	squotes = 0;
-	while (!ft_strchr("><", cmd[0]) || ((dquotes & 1) || (squotes & 1)))
-	{
-		dquotes += (!(squotes & 1) && cmd[0] == '"');
-		squotes += (!(dquotes & 1) && cmd[0] == '\'');
-		cmd++;
-	}
-	return (cmd);
+void	init_redi_arg(t_cmd *cmd, int size)
+{
+		cmd->redir_files = ft_calloc(size + 1, sizeof(char *));
+		cmd->redir_sym = ft_calloc(size + 1, sizeof(char *));
 }
 
-static int	skip_spaces(char *cmd)
+
+void	parse_redir(t_cmd *head)
 {
-	int	count;
+	int index0;
+	int	index1;
+	int length;
+	char **redi_extracted;
 
-	count = 0;
-	while (cmd[count] && ft_strchr("\t ", cmd[count]))
-		count++;
-	return (count);
-}
-
-static char	*extract_redi(char *cmd)
-{
-	int	i;
-	int	dquotes;
-	int	squotes;
-
-	i = 0;
-	dquotes = 0;
-	squotes = 0;
-	if (ft_strchr("><", cmd[i]))
+	while (head)
 	{
-		while (ft_strchr("><", cmd[i]))
-			i++;
-		return (ft_substr(cmd, 0, i));
+		index0 = 0;
+		index1 = 0;
+		redi_extracted = extract_redir(head->cmd);
+		length = ft_atoi(redi_extracted[0]);
+		init_redi_arg(head, length / 2);
+		while (++index0 <= length)
+		{
+			if (index0%2)
+				head->redir_sym[index1] = redi_extracted[index0];
+			else
+				head->redir_files[index1++] = redi_extracted[index0];
+		}
+		free(redi_extracted);
+		head = head->next;
 	}
-	while (!ft_strchr("\t ><;|", cmd[i]) || ((dquotes & 1) || (squotes & 1)))
-	{
-		dquotes += (!(squotes & 1) && cmd[i] == '"');
-		squotes += (!(dquotes & 1) && cmd[i] == '\'');
-		i++;
-	}
-	return (ft_substr(cmd, 0, i));
-}
-
-static int	redi_count(char *cmd)
-{
-	int	count;
-
-	count = 0;
-	cmd = next_redi(cmd);
-	while (cmd[0])
-	{
-		count++;
-		while (ft_strchr("><", cmd[0]))
-			cmd++;
-		cmd = next_redi(cmd);
-	}
-	return (count);
-}
-
-char	**parse_redi(char *cmd)
-{
-	int		index;
-	int		count;
-	char	**result;
-
-	index = 0;
-	count = redi_count(cmd) * 2;
-	result = ft_calloc(count + 1, sizeof(char *));
-	while (cmd && index < count)
-	{
-		cmd = next_redi(cmd);
-		result[index] = extract_redi(cmd);
-		cmd += ft_strlen(result[index++]);
-		cmd += skip_spaces(cmd);
-		result[index++] = extract_redi(cmd);
-	}
-	return (result);
 }
