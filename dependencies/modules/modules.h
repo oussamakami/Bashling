@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:02 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/14 06:57:00 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/14 08:53:20 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	*ft_realloc(void *ptr, size_t size);
 char	*get_work_dir(void);
 char	*get_host_name(void);
 char	*prompt(void);
+void	free2d(void **ptr);
 
 #endif
