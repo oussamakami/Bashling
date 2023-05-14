@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 DEPS = pipex.h libft.h
 
-FILES =  mypipex utils_pipex checking_errors   main removingquotes free split childs_check 
+FILES =  mypipex utils_pipex checking   main removingquotes free split childs_check 
 
 
 OBJ=$(FILES:=.o)
@@ -29,7 +29,7 @@ libft/libft.a:
 
 libpipex.a:
 	cc -c mypipex.c
-	ar -rcs libpipex.a mypipex.o utils_pipex.o checking_errors.o   main.o removingquotes.o free.o split.o childs_check.o 
+	ar -rcs libpipex.a mypipex.o utils_pipex.o checking.o   main.o removingquotes.o free.o split.o childs_check.o 
 
 ft_printf/libftprintf.a:
 	cd ft_printf && $(MAKE)

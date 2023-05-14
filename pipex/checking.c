@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checking_errors.c                                  :+:      :+:    :+:   */
+/*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yait-oul <yait-oul@student.1337.ma >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 05:00:15 by yait-oul          #+#    #+#             */
-/*   Updated: 2023/03/17 04:24:52 by yait-oul         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:55:10 by yait-oul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ int	message(char *str)
 	return (127);
 }
 
-int	code_exit(t_bipex pipex, char **envp, char **argv)
-{
-	int	err;
+// int	code_exit(t_bipex pipex, char **envp, char **argv)
+// {
+// 	int	err;
 
-	err = 0;
-	pipex.paths = envp_path(envp);
-	pipex.mypaths = ft_split(pipex.paths, ':');
-	pipex.mycmdargs = ft_split(argv[3], ' ');
-	pipex.comd = pathcmmd2(pipex.mypaths, pipex.mycmdargs[0], &err);
-	freeing_par(&pipex);
-	freeing_childs(&pipex);
-	return (err);
-}
+// 	err = 0;
+// 	pipex.paths = envp_path(envp);
+// 	pipex.mypaths = ft_split(pipex.paths, ':');
+// 	pipex.mycmdargs = ft_split(argv[3], ' ');
+// 	pipex.comd = pathcmmd2(pipex.mypaths, pipex.mycmdargs[0], &err);
+// 	freeing_par(&pipex);
+// 	freeing_childs(&pipex);
+// 	return (err);
+// }
 
 void	message_erreur(char *msg)
 {
