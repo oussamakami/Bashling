@@ -36,7 +36,8 @@ char	*prompt(void)
 		user = "User";
 	if (!host)
 		host = "Minishell";
-	printf("\033[1;32m%s@%s\033[1;0m:\033[1;34m%s\033[1;0m$ ", user, host, dir);
+	printf("\033[1;32m%s@%s\033[1;0m:\033[1;34m%s\033[1;0m$", user, host, dir);
 	free(dir);
-	return (readline(NULL));
+	rl_on_new_line();
+	return (readline(" "));
 }
