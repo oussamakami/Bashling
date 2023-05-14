@@ -4,15 +4,19 @@
 Minishell is a command-line interpreter that emulates the behavior of a real shell, using the C programming language. It is designed to allow users to interact with their computer system by entering commands through a terminal interface, parsing and executing those commands, and providing the user with the appropriate output or feedback.
 
 
-## Roadmap
+## Parsing Roadmap
 
-- [ ]   Config File Named: "mshell.conf".
-- [ ]   Check If The Config File Exists.
-- [ ]   Execute Any Command Written in The Config File at Lanche.
-- [ ]   Structure The Prompt Based on The Config File Instructions, **IF FILE EXIST**.
-- [ ]   UI Prompt.
-- [ ]   Wait for User Input.
-- [ ]   Print Each Output to its Respective File Descriptor.
+- [x]   split user input to multiple cmds.
+- [x]   extract arguments from cmds.
+- [x]   check separator errors.
+- [x]   UI Prompt.
+- [x]   extract redirections from cmds.
+- [ ]   check redirections errors.
+- [ ]   extract executable from cmds.
+- [ ]   check executable errors.
+- [ ]   replace each variable with it respected value.
+- [ ]   check for memory leaks.
+- [ ]   handle bash signals.
 
 
 ## Authors
