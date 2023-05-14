@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/13 06:43:25 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/14 03:51:06 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "../libft/libft.h"
 # include "../modules/modules.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 
 typedef struct cmd_data
 {

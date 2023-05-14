@@ -1,29 +1,28 @@
 #include "core.h"
 
-int main() {
-	t_cmd *cmds;
-    char* input;
-	int i = 0;
-    while (1) {
-        input = readline("user@hostname:directory$ ");
+int	main()
+{
+	t_cmd	*cmds;
+    char	*input;
+	int		i;
+
+    while (1)
+	{
+        input = prompt();
 		add_history(input);
 		cmds = parsing(input);
+		free(input);
 		while (cmds)
 		{
+			i = -1;
 			printf("command: \"%s\"\n", cmds->cmd);
 			printf("\texecutable: \"%s\"\n", cmds->exec);
-			while (cmds->args[i])
-			{
+			while (cmds->args[++i])
 				printf("\targ%d: %s\n", i, cmds->args[i]);
-				i++;
-			}
 			printf("\targ%d: %s\n", i, cmds->args[i]);
-			printf("\tsep: \"%s\"\n\n", cmds->sep);
-			i = 0;
+			printf("\tsep: \"%s\"\n", cmds->sep);
 			cmds = remove_cmd_from_tree(cmds, cmds);
 		}
-		i = 0;
-		free(input);
     }
     return 0;
 }
