@@ -4,7 +4,7 @@ RM			=	rm -rf
 MOD 		=	dependencies/modules/ft_realloc.c dependencies/modules/prompt.c
 PARSING 	=	dependencies/parsing/cmd_tree_ops.c dependencies/parsing/parsing.c\
 				dependencies/parsing/input_split.c dependencies/parsing/check_separator.c\
-				dependencies/parsing/parse_args.c
+				dependencies/parsing/parse_args.c dependencies/parsing/parse_redirections.c
 CFILES		=	core.c
 PARSINGOBJ	=	$(PARSING:.c=.o)
 COBJS		=	$(CFILES:.c=.o)
