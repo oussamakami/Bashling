@@ -17,10 +17,16 @@ int	main()
 			i = -1;
 			printf("command: \"%s\"\n", cmds->cmd);
 			printf("\texecutable: \"%s\"\n", cmds->exec);
+			printf("\targuments:\n");
+			while (cmds->args[++i])
+				printf("\t\t%d: \"%s\"\n", i, cmds->args[i]);
+			printf("\t\t%d: \"%s\"\n", i, cmds->args[i]);
+			i = -1;
+			printf("\tredirection:\n");
 			while (cmds->redir_sym[++i])
-				printf("\tredirection%d: %s\n", i, cmds->redir_sym[i]);
-			// printf("\targ%d: %s\n", i, cmds->args[i]);
-			// printf("\tsep: \"%s\"\n", cmds->sep);
+				printf("\t\t%d: \"%s\"\n", i, cmds->redir_sym[i]);
+			printf("\tseparator: \"%s\"\n", cmds->sep);
+			printf("======================================\n");
 			cmds = remove_cmd_from_tree(cmds, cmds);
 		}
     }
