@@ -29,13 +29,52 @@ char	*get_host_name(void)
 	int		fd;
 	char	*buff;
 
+	buff = NULL;
 	fd = open("/etc/hostname", O_RDONLY);
-	buff = ft_calloc(1024, 1);
-	read(fd, buff, 1024);
+	if (fd > 0)
+	{
+		buff = ft_calloc(1024, 1);
+		read(fd, buff, 1024);
+	}
 	close(fd);
 	if (buff && buff[ft_strlen(buff)-1] == '\n')
 		buff[ft_strlen(buff) - 1] = '\0';
 	return (buff);
+}
+
+char *extract_branch(char *buff)
+{
+	int i;
+	char **temp;
+	char *branch;
+
+	i = -1;
+	temp = ft_split(buff, '/');
+	free(buff);
+	while (temp[++i])
+		branch = temp[i];
+	branch[ft_strlen(branch)-1] = '\0';
+	branch = replace_word(" (b)", "b", branch);
+	free2d((void **)temp);
+	return (branch);
+}
+
+char	*get_branch_name(void)
+{
+	int		fd;
+	char	*buff;
+
+	buff = NULL;
+	fd = open(".git/HEAD", O_RDONLY);
+	if (fd > 0)
+	{
+		buff = ft_calloc(1024, 1);
+		read(fd, buff, 1024);
+	}
+	close(fd);
+	if (buff)
+		return (extract_branch(buff));
+	return (NULL);
 }
 
 static char	*replace_and_free(char *str, char *w0, char *w1)
@@ -52,12 +91,14 @@ static char	*generate_prompt(void)
 	char	*user;
 	char	*host;
 	char	*dir;
+	char	*branch;
 	char	*prompt;
 
 	user = getenv("USER");
 	host = get_host_name();
 	dir = get_work_dir();
-	prompt = ft_strdup("\033[1;32mU@M\033[1;0m:\033[1;34mD\033[1;0m$ ");
+	branch = get_branch_name();
+	prompt = ft_strdup("\033[1;32mU@M\033[1;0m:\033[1;34mD\033[1;35mB\033[1;0m$ ");
 	if (user)
 		prompt = replace_and_free(prompt, "U", user);
 	else
@@ -71,6 +112,8 @@ static char	*generate_prompt(void)
 		prompt = replace_and_free(prompt, "M", "Minishell");
 	prompt = replace_and_free(prompt, "D", dir);
 	free(dir);
+	prompt = replace_and_free(prompt, "B", branch);
+	free(branch);
 	return (prompt);
 }
 
