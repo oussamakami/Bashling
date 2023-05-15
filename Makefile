@@ -2,7 +2,7 @@ CC			=	cc
 CFLAGS		=	-Wall -Wextra -g
 RM			=	rm -rf
 MOD 		=	dependencies/modules/ft_realloc.c dependencies/modules/prompt.c\
-				dependencies/modules/free2d.c
+				dependencies/modules/free2d.c dependencies/modules/replace_word.c
 PARSING 	=	dependencies/parsing/cmd_tree_ops.c dependencies/parsing/parsing.c\
 				dependencies/parsing/input_split.c dependencies/parsing/check_separator.c\
 				dependencies/parsing/parse_args.c dependencies/parsing/extract_redirections.c\

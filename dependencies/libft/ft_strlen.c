@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:36:33 by okamili           #+#    #+#             */
-/*   Updated: 2022/10/15 08:27:40 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/15 01:56:02 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *s)
 	size_t	total;
 
 	total = 0;
-	while (s[total] != '\0')
+	while (s && s[total] != '\0')
 	{
 		total++;
 	}

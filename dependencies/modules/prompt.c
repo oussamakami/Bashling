@@ -38,22 +38,46 @@ char	*get_host_name(void)
 	return (buff);
 }
 
-char	*prompt(void)
+static char	*replace_and_free(char *str, char *w0, char *w1)
+{
+	char	*result;
+
+	result = replace_word(str, w0, w1);
+	free(str);
+	return (result);
+}
+
+static char	*generate_prompt(void)
 {
 	char	*user;
 	char	*host;
 	char	*dir;
+	char	*prompt;
 
 	user = getenv("USER");
 	host = get_host_name();
 	dir = get_work_dir();
-	if (!user)
-		user = "User";
-	if (!host)
-		host = ft_strdup("Minishell");
-	printf("\033[1;32m%s@%s\033[1;0m:\033[1;34m%s\033[1;0m$", user, host, dir);
-	free(host);
+	prompt = ft_strdup("\033[1;32mU@M\033[1;0m:\033[1;34mD\033[1;0m$ ");
+	if (user)
+		prompt = replace_and_free(prompt, "U", user);
+	else
+		prompt = replace_and_free(prompt, "U", "USER");
+	if (host)
+	{
+		prompt = replace_and_free(prompt, "M", host);
+		free(host);
+	}
+	else
+		prompt = replace_and_free(prompt, "M", "Minishell");
+	prompt = replace_and_free(prompt, "D", dir);
 	free(dir);
-	rl_on_new_line();
-	return (readline(" "));
+	return (prompt);
+}
+
+char	*prompt(void)
+{
+	char	*input;
+
+	input = readline(generate_prompt());
+	return (input);
 }

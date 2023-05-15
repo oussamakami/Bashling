@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 02:03:11 by okamili           #+#    #+#             */
-/*   Updated: 2022/10/15 07:38:24 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/15 02:04:02 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	size_t	count;
 
 	src_length = ft_strlen(src);
+	if (dstsize && !src_length)
+		return (0);
 	if (!dstsize)
 		return (src_length);
 	count = 0;
