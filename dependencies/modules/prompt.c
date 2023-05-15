@@ -42,11 +42,11 @@ char	*get_host_name(void)
 	return (buff);
 }
 
-char *extract_branch(char *buff)
+char	*extract_branch(char *buff)
 {
-	int i;
-	char **temp;
-	char *branch;
+	int		i;
+	char	**temp;
+	char	*branch;
 
 	i = -1;
 	temp = ft_split(buff, '/');
@@ -54,7 +54,7 @@ char *extract_branch(char *buff)
 	while (temp[++i])
 		branch = temp[i];
 	branch[ft_strlen(branch)-1] = '\0';
-	branch = replace_word(" (b)", "b", branch);
+	branch = replace_all_words(" (b)", "b", branch, 0);
 	free2d((void **)temp);
 	return (branch);
 }
@@ -77,42 +77,26 @@ char	*get_branch_name(void)
 	return (NULL);
 }
 
-static char	*replace_and_free(char *str, char *w0, char *w1)
-{
-	char	*result;
-
-	result = replace_word(str, w0, w1);
-	free(str);
-	return (result);
-}
-
 static char	*generate_prompt(void)
 {
-	char	*user;
 	char	*host;
 	char	*dir;
 	char	*branch;
 	char	*prompt;
 
-	user = getenv("USER");
 	host = get_host_name();
 	dir = get_work_dir();
 	branch = get_branch_name();
-	prompt = ft_strdup("\033[1;32mU@M\033[1;0m:\033[1;34mD\033[1;35mB\033[1;0m$ ");
-	if (user)
-		prompt = replace_and_free(prompt, "U", user);
-	else
-		prompt = replace_and_free(prompt, "U", "USER");
+	prompt = ft_strdup(
+			"\033[1;32mUSER@Minishell\033[1;0m:\033[1;34mD\033[1;35mB\033[1;0m$ ");
+	if (getenv("USER"))
+		prompt = replace_all_words(prompt, "USER", getenv("USER"), 1);
 	if (host)
-	{
-		prompt = replace_and_free(prompt, "M", host);
-		free(host);
-	}
-	else
-		prompt = replace_and_free(prompt, "M", "Minishell");
-	prompt = replace_and_free(prompt, "D", dir);
+		prompt = replace_all_words(prompt, "Minishell", host, 1);
+	free(host);
+	prompt = replace_all_words(prompt, "D", dir, 1);
 	free(dir);
-	prompt = replace_and_free(prompt, "B", branch);
+	prompt = replace_all_words(prompt, "B", branch, 1);
 	free(branch);
 	return (prompt);
 }

@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:52:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/14 08:58:28 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/15 12:28:24 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ t_cmd	*allocate_cmd_node(char *whole_command)
 	t_cmd	*result;
 
 	result = malloc(sizeof(t_cmd));
-	result->cmd = whole_command;//
+	result->cmd = whole_command;
 	result->exec = NULL;
-	result->args = NULL;//
+	result->args = NULL;
 	result->redir_files = NULL;
 	result->redir_sym = NULL;
-	result->sep = NULL;//
+	result->sep = NULL;
 	result->error = 0;
 	result->next = NULL;
 	return (result);

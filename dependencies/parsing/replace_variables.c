@@ -1,27 +1,57 @@
 #include "parsing.h"
 
-int	variable_count(char *str)
+static int	next_variable(char *str, int index)
 {
-	int count;
+	int	i;
 	int	dquotes;
 	int	squotes;
 
-	count = 0;
+	i = -1;
 	dquotes = 0;
 	squotes = 0;
-	while (str[0])
+	while (++i < index && str[i])
 	{
-		while (str[0] && (!(str[0] == '$') || (squotes & 1)))
-		{
-			dquotes += (!(squotes & 1) && str[0] == '"');
-			squotes += (!(dquotes & 1) && str[0] == '\'');
-			str++;
-		}
-		if (str[0])
-		{
-			count++;
-			str++;
-		}
+		dquotes += (!(squotes & 1) && str[i] == '"');
+		squotes += (!(dquotes & 1) && str[i] == '\'');
 	}
-	return (count);
+	while (str[i] && (str[i] != '$' || (squotes & 1)))
+	{
+		dquotes += (!(squotes & 1) && str[i] == '"');
+		squotes += (!(dquotes & 1) && str[i] == '\'');
+		i++;
+	}
+	if (str[i] == '$')
+		return (i);
+	return (-1);
+}
+
+static char	*get_variable_name(char *str, int index)
+{
+	int	i;
+
+	i = index + 1;
+	while (str[i] && !ft_strchr("\t ><;\"|'$", str[i]))
+		i++;
+	return (ft_substr(str, index, i - index));
+}
+
+char	*replace_variables(char *str)
+{
+	int		var_index;
+	char	*var_name;
+	char	*temp;
+	char	*result;
+
+	result = ft_strdup(str);
+	var_index = next_variable(result, 0);
+	while (var_index != -1)
+	{
+		var_name = get_variable_name(result, var_index);
+		temp = replace_all_words(var_name, "$", NULL, 0);
+		result = replace_word(result, var_name, getenv(temp), 1);
+		free(temp);
+		free(var_name);
+		var_index = next_variable(result, 0);
+	}
+	return (result);
 }
