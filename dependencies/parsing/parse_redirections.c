@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:42:06 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/16 02:34:18 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	parse_redir(t_cmd *head)
 		index1 = 0;
 		redi_extracted = extract_redir(head->cmd);
 		length = ft_atoi(redi_extracted[0]);
+		free(redi_extracted[0]);
 		init_redi_arg(head, length / 2);
 		while (++index0 <= length)
 		{

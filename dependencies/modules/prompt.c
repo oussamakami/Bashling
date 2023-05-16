@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:39 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:41:40 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/16 02:37:35 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,10 @@ static char	*generate_prompt(void)
 char	*prompt(void)
 {
 	char	*input;
+	char	*prompt_txt;
 
-	input = readline(generate_prompt());
+	prompt_txt = generate_prompt();
+	input = readline(prompt_txt);
+	free(prompt_txt);
 	return (input);
 }
