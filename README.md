@@ -16,7 +16,7 @@ Minishell is a command-line interpreter that emulates the behavior of a real she
 - [ ]   check executable errors.
 - [X]   replace each variable with it respected value.
 - [ ]   check for memory leaks.
-- [ ]   handle bash signals.
+- [X]   handle bash signals.
 - [ ]   Organise code.
 - [ ]	Write functions documentation.
 - [ ]   Join code with execution half of code.

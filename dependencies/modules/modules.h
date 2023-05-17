@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:02 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:10:27 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/17 04:02:40 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	*ft_realloc(void *ptr, size_t size);
 char	*get_work_dir(void);
 char	*get_host_name(void);
 char	*prompt(void);
+char	*prompt_msg(void);
 void	free2d(void **ptr);
 char	*replace_word(char *str, char *w0, char *w1, int usefree);
 char	*replace_all_words(char *str, char *w0, char *w1, int usefree);

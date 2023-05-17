@@ -5,5 +5,6 @@
 # define INT_MIN -2147483648
 # include "dependencies/libft/libft.h"
 # include "dependencies/parsing/parsing.h"
+# include "signal.h"
 
 #endif

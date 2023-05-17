@@ -1,14 +1,32 @@
 #include "core.h"
 
+void	sig_handler(int sign)
+{
+	char *msg;
+	if (sign == SIGINT)
+	{
+		msg = prompt_msg();
+		printf("\n%s", msg);
+		free(msg);
+	}
+}
+
+
 int	main()
 {
 	t_cmd	*cmds;
     char	*input;
 	int		i;
 
+	signal(SIGINT, sig_handler);
     while (1)
 	{
         input = prompt();
+		if (!input)
+		{
+			printf("\n");
+			exit(0);
+		}
 		add_history(input);
 		cmds = parsing(input);
 		free(input);

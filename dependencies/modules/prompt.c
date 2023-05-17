@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:39 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/16 02:37:35 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/17 04:02:29 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*get_branch_name(void)
 	return (NULL);
 }
 
-static char	*generate_prompt(void)
+char	*prompt_msg(void)
 {
 	char	*host;
 	char	*dir;
@@ -118,7 +118,7 @@ char	*prompt(void)
 	char	*input;
 	char	*prompt_txt;
 
-	prompt_txt = generate_prompt();
+	prompt_txt = prompt_msg();
 	input = readline(prompt_txt);
 	free(prompt_txt);
 	return (input);
