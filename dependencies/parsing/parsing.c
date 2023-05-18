@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:09 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:42:10 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/18 10:40:41 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cmd	*parsing(char *input)
 		temp = replace_variables(holder->cmd);
 		holder->args = parse_args(temp);
 		free(temp);
-		holder->exec = holder->args[0];
+		holder->exec = parse_exec(holder->args[0], &holder->error);
 		if (ft_strchr(";|", holder->cmd[ft_strlen(holder->cmd) - 1]))
 			holder->sep = holder->cmd + (ft_strlen(holder->cmd) - 1);
 		holder = holder->next;

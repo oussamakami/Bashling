@@ -12,8 +12,8 @@ Minishell is a command-line interpreter that emulates the behavior of a real she
 - [x]   UI Prompt.
 - [x]   extract redirections from cmds.
 - [ ]   check redirections errors.
-- [ ]   extract executable from cmds.
-- [ ]   check executable errors.
+- [X]   extract executable from cmds.
+- [X]   check executable errors.
 - [X]   replace each variable with it respected value.
 - [ ]   check for memory leaks.
 - [X]   handle bash signals.

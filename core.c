@@ -33,8 +33,9 @@ int	main()
 		while (cmds)
 		{
 			i = -1;
+			if (!cmds->error){
 			printf("command: \"%s\"\n", cmds->cmd);
-			printf("\texecutable: \"%s\"\n", cmds->exec);
+			printf("\texecutable: \"%s\" %d\n", cmds->exec, cmds->error);
 			printf("\targuments:\n");
 			while (cmds->args[++i])
 				printf("\t\t%d: \"%s\"\n", i, cmds->args[i]);
@@ -45,6 +46,7 @@ int	main()
 				printf("\t\t%d: \"%s\", \"%s\"\n", i, cmds->redir_sym[i], cmds->redir_files[i]);
 			printf("\tseparator: \"%s\"\n", cmds->sep);
 			printf("======================================\n");
+			}
 			cmds = remove_cmd_from_tree(cmds, cmds);
 		}
     }
