@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:52:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 16:14:19 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 19:59:39 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmd	*allocate_cmd_node(char *whole_command)
 	result->redir_sym = NULL;
 	result->sep = NULL;
 	result->error = 0;
+	result->prev_error = 0;
 	result->next = NULL;
 	return (result);
 }
@@ -68,10 +69,14 @@ t_cmd	*remove_cmd_from_tree(t_cmd *head, t_cmd *todelete)
 	return (head);
 }
 
-t_cmd	*get_next_cmd(t_cmd *head)
+t_cmd	*get_next_cmd(t_cmd *head, int *err)
 {
 	t_cmd	*result;
 
+	if (head->next)
+		head->next->prev_error = head->error;
+	else
+		*err = head->error;
 	result = remove_cmd_from_tree(head, head);
 	if (result)
 		parsing(result);

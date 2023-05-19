@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:42:18 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 19:10:06 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*get_variable_name(char *str, int index)
 	return (ft_substr(str, index, i - index));
 }
 
-char	*replace_variables(char *str)
+char	*replace_variables(char *str, int err)
 {
 	int		var_index;
 	char	*var_name;
@@ -60,7 +60,14 @@ char	*replace_variables(char *str)
 	{
 		var_name = get_variable_name(result, var_index);
 		temp = replace_all_words(var_name, "$", NULL, 0);
-		result = replace_word(result, var_name, getenv(temp), 1);
+		if (ft_strncmp("$?", var_name, 3))
+			result = replace_word(result, var_name, getenv(temp), 1);
+		else
+		{
+			free(temp);
+			temp = ft_itoa(err);
+			result = replace_word(result, var_name, temp, 1);
+		}
 		free(temp);
 		free(var_name);
 		var_index = next_variable(result, 0);

@@ -14,10 +14,12 @@ void	sig_handler(int sign)
 
 int	main()
 {
+	int		err;
 	t_cmd	*cmds;
     char	*input;
 
 	signal(SIGINT, sig_handler);
+	err = 0;
     while (1)
 	{
         input = prompt();
@@ -27,16 +29,18 @@ int	main()
 			exit(0);
 		}
 		add_history(input);
-		cmds = input_split(input);
+		cmds = input_split(input, &err);
+		if (cmds)
+			cmds->prev_error = err;
 		parsing(cmds);
 		free(input);
 		while (cmds)
 		{
 			if (cmds->sep && cmds->sep[0] == '|')
-				cmds = run_pipe_commands(cmds);
+				cmds = run_pipe_commands(cmds, &err);
 			else
 				run_commands(cmds);
-			cmds = get_next_cmd(cmds);
+			cmds = get_next_cmd(cmds, &err);
 		}
     }
     return 0;

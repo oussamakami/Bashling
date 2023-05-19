@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 16:11:29 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 20:01:08 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	exec_pipes(t_cmd *cmds, int pfd[2], int oldpfd[2], int count)
 	return (0);
 }
 
-t_cmd	*run_pipe_commands(t_cmd *cmds)
+t_cmd	*run_pipe_commands(t_cmd *cmds, int *err)
 {
 	int	count;
 	int	pfd[2];
@@ -93,7 +93,7 @@ t_cmd	*run_pipe_commands(t_cmd *cmds)
 		pipe(pfd);
 		if (exec_pipes(cmds, pfd, oldpfd, count++))
 			break ;
-		cmds = get_next_cmd(cmds);
+		cmds = get_next_cmd(cmds, err);
 	}
 	close(pfd[0]);
 	close(pfd[1]);

@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 12:51:16 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 19:59:28 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct cmd_data
 	char			**redir_sym;
 	char			*sep;
 	int				error;
+	int				prev_error;
 	struct cmd_data	*next;
 }	t_cmd;
 
@@ -79,14 +80,14 @@ void	erase_cmd_node(t_cmd *cmd_pointer);
  * @param head Reference to the beginning of the t_cmd tree.
  */
 void	free_cmd_tree(t_cmd *head);
-t_cmd	*input_split(char *input);
+t_cmd	*input_split(char *input, int *err);
 int		check_separator(t_cmd *cmd);
 char	**parse_args(char *cmd);
 char	**extract_redir(char *cmd);
 void	parse_redir(t_cmd *head);
 void	parsing(t_cmd *cmd);
 char	*parse_exec(char *cmd, int *err);
-char	*replace_variables(char *str); //just testing
-t_cmd	*get_next_cmd(t_cmd *head);
+char	*replace_variables(char *str, int err); //just testing
+t_cmd	*get_next_cmd(t_cmd *head, int *err);
 
 #endif
