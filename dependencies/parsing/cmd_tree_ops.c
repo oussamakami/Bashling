@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:52:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:28:24 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 12:53:52 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,16 @@ t_cmd	*remove_cmd_from_tree(t_cmd *head, t_cmd *todelete)
 		head = todelete->next;
 	erase_cmd_node(todelete);
 	return (head);
+}
+
+t_cmd	*get_next_cmd(t_cmd *head)
+{
+	t_cmd *result;
+
+	result = remove_cmd_from_tree(head, head);
+	if (result)
+		parsing(result);
+	return result;
 }
 
 void	erase_cmd_node(t_cmd *cmd_pointer)

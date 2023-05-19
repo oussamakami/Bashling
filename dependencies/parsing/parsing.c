@@ -6,30 +6,21 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:09 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/18 10:40:41 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 12:48:22 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_cmd	*parsing(char *input)
+void	parsing(t_cmd *cmd)
 {
-	t_cmd	*result;
-	t_cmd	*holder;
 	char	*temp;
 
-	result = input_split(input);
-	holder = result;
-	while (holder)
-	{
-		temp = replace_variables(holder->cmd);
-		holder->args = parse_args(temp);
-		free(temp);
-		holder->exec = parse_exec(holder->args[0], &holder->error);
-		if (ft_strchr(";|", holder->cmd[ft_strlen(holder->cmd) - 1]))
-			holder->sep = holder->cmd + (ft_strlen(holder->cmd) - 1);
-		holder = holder->next;
-	}
-	parse_redir(result);
-	return (result);
+	temp = replace_variables(cmd->cmd);
+	cmd->args = parse_args(temp);
+	free(temp);
+	cmd->exec = parse_exec(cmd->args[0], &cmd->error);
+	if (ft_strchr(";|", cmd->cmd[ft_strlen(cmd->cmd) - 1]))
+		cmd->sep = cmd->cmd + (ft_strlen(cmd->cmd) - 1);
+	parse_redir(cmd);
 }
