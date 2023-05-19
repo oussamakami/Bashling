@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_exec.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 09:07:10 by okamili           #+#    #+#             */
+/*   Updated: 2023/05/19 09:14:27 by okamili          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parsing.h"
 
-static char *get_relative_path(char *cmd)
+static char	*get_relative_path(char *cmd)
 {
-	char *work_dir;
-	char *result;
+	char	*work_dir;
+	char	*result;
 
 	work_dir = get_work_dir();
 	result = NULL;
@@ -42,15 +54,12 @@ static char	*get_absolute_path(char *cmd)
 		free(result);
 	}
 	free2d((void **)template);
-	result = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
-	ft_putstr_fd(result, 2);
-	free(result);
 	return (NULL);
 }
 
 static int	check_input(char *cmd)
 {
-	char *temp;
+	char	*temp;
 
 	if (cmd && cmd[0] == '.' && ft_strlen(cmd) == 1)
 	{
@@ -59,7 +68,8 @@ static int	check_input(char *cmd)
 	}
 	if (cmd && cmd[0] == '~' && ft_strlen(cmd) == 1)
 	{
-		temp = replace_word("Minishell: ~: Is a directory\n", "~", getenv("HOME"), 0);
+		temp = replace_word("Minishell: ~: Is a directory\n",
+				"~", getenv("HOME"), 0);
 		ft_putstr_fd(temp, 2);
 		free(temp);
 		return (126);
@@ -70,6 +80,19 @@ static int	check_input(char *cmd)
 		return (126);
 	}
 	return (0);
+}
+
+void	print_error(char *cmd, int err)
+{
+	char	*temp;
+
+	temp = NULL;
+	if (err == 127)
+		temp = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
+	else if (err == 126)
+		temp = replace_word("Minishell: E: Permission denied\n", "E", cmd, 0);
+	ft_putstr_fd(temp, 2);
+	free(temp);
 }
 
 char	*parse_exec(char *cmd, int *err)
@@ -84,24 +107,16 @@ char	*parse_exec(char *cmd, int *err)
 			result = get_relative_path(cmd);
 		else if (!*err)
 			result = get_absolute_path(cmd);
-		if (!result || access(result, F_OK))
+		if (!*err && (!result || access(result, F_OK) || access(result, X_OK)))
 		{
-			*err = 127;
-			result = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
-			ft_putstr_fd(result, 2);
+			if (!result || access(result, F_OK))
+				*err = 127;
+			else if (result && access(result, X_OK))
+				*err = 126;
+			print_error(cmd, *err);
 			free(result);
-			result = NULL;
-		}
-		else if (result && access(result, X_OK))
-		{
-			*err = 126;
-			result = replace_word("Minishell: E: Permission denied\n", "E", cmd, 0);
-			ft_putstr_fd(result, 2);
-			free(result);
-			result = NULL;
+			result = ft_strdup(cmd);
 		}
 	}
-	if (result)
-		return (result);
-	return (ft_strdup(cmd));
+	return (result);
 }
