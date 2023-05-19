@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 12:59:06 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 13:47:26 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	execute_cmd(t_cmd *cmd, int pipefd[2], int red_input, int red_output, int newpipefd[2])
 {
 	pid_t	pid;
+	extern char** environ;
 
 	pid = fork();
 	if (pid == -1)
@@ -44,7 +45,7 @@ static void	execute_cmd(t_cmd *cmd, int pipefd[2], int red_input, int red_output
 			close(pipefd[1]);
 		}
 		if (!cmd->error)
-			execve(cmd->exec, cmd->args, NULL);
+			execve(cmd->exec, cmd->args, environ);
 		exit(1);
 	}
 }
