@@ -30,7 +30,7 @@ static char	*get_absolute_path(char *cmd)
 
 	index = -1;
 	template = ft_split(getenv("PATH"), ':');
-	while (template[++index] && cmd)
+	while (template && template[++index] && cmd)
 	{
 		result = replace_word("P/E", "E", cmd, 0);
 		result = replace_word(result, "P", template[index], 1);
@@ -42,6 +42,9 @@ static char	*get_absolute_path(char *cmd)
 		free(result);
 	}
 	free2d((void **)template);
+	result = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
+	ft_putstr_fd(result, 2);
+	free(result);
 	return (NULL);
 }
 
@@ -51,7 +54,7 @@ static int	check_input(char *cmd)
 
 	if (cmd && cmd[0] == '.' && ft_strlen(cmd) == 1)
 	{
-		ft_putstr_fd("Minishell: .: filename argument required\n", 2);
+		ft_putstr_fd("Minishell: .: Filename argument required\n", 2);
 		return (2);
 	}
 	if (cmd && cmd[0] == '~' && ft_strlen(cmd) == 1)
@@ -82,9 +85,21 @@ char	*parse_exec(char *cmd, int *err)
 		else if (!*err)
 			result = get_absolute_path(cmd);
 		if (!result || access(result, F_OK))
+		{
 			*err = 127;
+			result = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
+			ft_putstr_fd(result, 2);
+			free(result);
+			result = NULL;
+		}
 		else if (result && access(result, X_OK))
+		{
 			*err = 126;
+			result = replace_word("Minishell: E: Permission denied\n", "E", cmd, 0);
+			ft_putstr_fd(result, 2);
+			free(result);
+			result = NULL;
+		}
 	}
 	if (result)
 		return (result);
