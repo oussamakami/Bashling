@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:46 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:41:47 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/19 14:32:52 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static char	*replaced_str(char *str, char *w0, char *w1)
 
 	lock = 0;
 	result_length = new_str_size(str, w0, w1);
-	if (result_length == ft_strlen(str))
-		return (ft_strdup(str));
 	result = ft_calloc(result_length + 1, 1);
 	while (str && str[0])
 	{
