@@ -35,7 +35,7 @@ int	main()
 			if (cmds->sep && cmds->sep[0] == '|')
 				cmds = run_pipe_commands(cmds);
 			else
-				run_cmd(cmds);
+				run_commands(cmds);
 			cmds = get_next_cmd(cmds);
 		}
     }
