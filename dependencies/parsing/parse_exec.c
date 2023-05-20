@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:07:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/20 08:02:03 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/20 11:47:41 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,6 @@ char	*parse_exec(char *cmd, int *err)
 			result = ft_strdup(cmd);
 		}
 	}
+	free(cmd);
 	return (result);
 }
