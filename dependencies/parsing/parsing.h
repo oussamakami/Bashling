@@ -6,13 +6,14 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 19:59:28 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/20 07:45:41 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+# include <sys/stat.h>
 # include "../libft/libft.h"
 # include "../modules/modules.h"
 

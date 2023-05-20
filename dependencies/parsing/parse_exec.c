@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:07:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 09:14:27 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/20 08:02:03 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,32 @@ static int	check_input(char *cmd)
 	return (0);
 }
 
-void	print_error(char *cmd, int err)
+void	print_error(char *cmd, char *path, int *err)
 {
-	char	*temp;
+	char		*tmp;
+	struct stat	stats;
 
-	temp = NULL;
-	if (err == 127)
-		temp = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
-	else if (err == 126)
-		temp = replace_word("Minishell: E: Permission denied\n", "E", cmd, 0);
-	ft_putstr_fd(temp, 2);
-	free(temp);
+	tmp = NULL;
+	if (!*err && (!path || access(path, F_OK)))
+	{
+		*err = 127;
+		tmp = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
+	}
+	if (!*err && !tmp && !stat(path, &stats))
+	{
+		if (S_ISDIR(stats.st_mode))
+		{
+			*err = 126;
+			tmp = replace_word("Minishell: E: Is a directory\n", "E", cmd, 0);
+		}
+		else if (access(path, X_OK))
+		{
+			*err = 126;
+			tmp = replace_word("Minishell: E: Permission denied\n", "E", cmd, 0);
+		}
+	}
+	ft_putstr_fd(tmp, 2);
+	free(tmp);
 }
 
 char	*parse_exec(char *cmd, int *err)
@@ -107,13 +122,9 @@ char	*parse_exec(char *cmd, int *err)
 			result = get_relative_path(cmd);
 		else if (!*err)
 			result = get_absolute_path(cmd);
-		if (!*err && (!result || access(result, F_OK) || access(result, X_OK)))
+		print_error(cmd, result, err);
+		if (*err)
 		{
-			if (!result || access(result, F_OK))
-				*err = 127;
-			else if (result && access(result, X_OK))
-				*err = 126;
-			print_error(cmd, *err);
 			free(result);
 			result = ft_strdup(cmd);
 		}
