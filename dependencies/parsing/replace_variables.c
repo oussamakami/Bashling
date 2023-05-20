@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 19:10:06 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/20 05:32:21 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static int	next_variable(char *str, int index)
 		dquotes += (!(squotes & 1) && str[i] == '"');
 		squotes += (!(dquotes & 1) && str[i] == '\'');
 	}
-	while (str[i] && (str[i] != '$' || (squotes & 1)))
+	while ((str[i] && (str[i] != '$' || (squotes & 1)))
+		|| (str[i] == '$' && !(squotes & 1)
+			&& ft_strchr("\t ><;\"|'$", str[i + 1])))
 	{
 		dquotes += (!(squotes & 1) && str[i] == '"');
 		squotes += (!(dquotes & 1) && str[i] == '\'');
