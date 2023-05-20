@@ -2,7 +2,7 @@
 NAME = builtins
 
 # List of source files
-SRC = env.c export.c split.c main.c utils.c unset.c
+SRC = env.c export.c split.c main.c utils.c unset.c pwd.c echo.c cd.c
 
 # List of object files, derived from source files
 OBJ = $(SRC:.c=.o)

@@ -1,7 +1,9 @@
 #include "builtins.h"
 
-int main(int argc, char **argv, char **environ) {
+
+int main(int ac, char **av, char **environ) {
     // Initialize the environment list
+    int k = 0;
   
     // The environment list
     t_env *env_list = NULL;
@@ -12,12 +14,17 @@ int main(int argc, char **argv, char **environ) {
     while (1) {
         printf("> ");
         fgets(command, 256, stdin);
-        
+         
         // Remove trailing newline
         command[strcspn(command, "\n")] = 0;
 
         // Split the command and arguments
-        char **parts = ft_split(command, ' ');
+        char **parts = ft_split2(command, ' ');
+        // count the arguments
+        int count = 0;
+        for(char **tmp = parts; *tmp; tmp++) {
+            count++;
+        }
         if (!parts || !parts[0]) {
             // Invalid input, handle error
             printf("Invalid input\n");
@@ -33,7 +40,8 @@ int main(int argc, char **argv, char **environ) {
         } else if (!strcmp(parts[0], "export")) {
             // Add or update an environment variable
             // if (parts[1]) {
-                export_var(&env_list, &export_list, parts[1]);
+               
+            export_var(&env_list, &export_list, parts);
             // } else {
             //     printf("Usage: export VAR=VALUE\n");
             // }
@@ -42,7 +50,20 @@ int main(int argc, char **argv, char **environ) {
             unset_var(&env_list, parts[1]);
             unset_var(&export_list, parts[1]);
         
-        } else {
+        }else if (!strcmp(parts[0], "pwd"))
+        {
+            pwd();
+        
+        } else if (!strcmp(parts[0], "cd"))
+        {
+            cd(&env_list , parts[1]); 
+
+        }else if (!strcmp(parts[0], "echo"))
+        {
+           echo(count, parts);    
+        
+        
+        }else {
             printf("Unknown command: %s\n", parts[0]);
         }
 

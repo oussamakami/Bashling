@@ -43,7 +43,7 @@ char	*malloc_word(char *str, char c)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split2(char const *s, char c)
 {
 	char	**arr;
 	int		i;
@@ -69,3 +69,39 @@ char	**ft_split(char const *s, char c)
 	arr[i] = NULL;
 	return (arr);
 }
+
+
+char **ft_split(char *str, char sep) {
+    char **result = malloc(sizeof(char *) * 3);
+    if (!result) {
+        printf("Memory allocation error\n");
+        return NULL;
+    }
+	char *sep_position = strchr(str, sep);
+    if (sep_position) {
+        int index = sep_position - str;
+        result[0] = malloc(index + 1);
+        strncpy(result[0], str, index);
+        result[0][index] = '\0';
+
+        result[1] = strdup(sep_position + 1);
+    } else {
+        // If separator doesn't exist in the string
+        result[0] = strdup(str);
+        result[1] = NULL;
+    }
+	result[2] = NULL; // End of array
+    return result;
+}
+
+
+// int main()
+// {
+// 	char *str = "variable===value";
+
+// 	char **string = ft_split_first(str, '=');
+
+// 	printf("%s\n", string[0]);
+// 	printf("%s\n", string[1]);
+
+// }
