@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:39 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/17 04:02:29 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/27 23:12:43 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_work_dir(void)
 	size_t	work_len;
 	size_t	home_len;
 
-	home_dir = getenv("HOME");
+	home_dir = fetch("HOME");
 	work_dir = getcwd(NULL, 0);
 	home_len = ft_strlen(home_dir) - 1;
 	work_len = ft_strlen(work_dir);
@@ -101,8 +101,8 @@ char	*prompt_msg(void)
 	branch = get_branch_name();
 	prompt = ft_strdup(
 			"\033[1;32mUSER@Minishell\033[1;0m:\033[1;34mD\033[1;35mB\033[1;0m$ ");
-	if (getenv("USER"))
-		prompt = replace_all_words(prompt, "USER", getenv("USER"), 1);
+	if (fetch("USER"))
+		prompt = replace_all_words(prompt, "USER", fetch("USER"), 1);
 	if (host)
 		prompt = replace_all_words(prompt, "Minishell", host, 1);
 	free(host);
