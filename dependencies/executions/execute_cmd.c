@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 04:01:08 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 05:39:22 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void	execute_cmd(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2])
 
 void	run_commands(t_cmd *cmd)
 {
+	if (is_builtin(cmd->exec))
+		run_builtins(cmd);
 	execute_cmd(cmd, NULL, (int [2]){0, 0}, NULL);
 	wait(NULL);
 }

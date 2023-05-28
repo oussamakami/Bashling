@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:39 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/27 23:12:43 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 05:52:14 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ char	*prompt_msg(void)
 	host = get_host_name();
 	dir = get_work_dir();
 	branch = get_branch_name();
-	prompt = ft_strdup(
-			"\033[1;32mUSER@Minishell\033[1;0m:\033[1;34mD\033[1;35mB\033[1;0m$ ");
+	prompt = ft_strdup("\001\033[1;32m\002USER@Minishell"
+			"\001\033[1;0m\002:\001\033[1;34m\002"
+			"D\001\033[1;35m\002B\001\033[1;0m\002$ ");
 	if (fetch("USER"))
 		prompt = replace_all_words(prompt, "USER", fetch("USER"), 1);
 	if (host)
