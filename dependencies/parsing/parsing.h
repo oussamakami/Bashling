@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/20 07:45:41 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 00:53:23 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ char	**extract_redir(char *cmd);
 void	parse_redir(t_cmd *head);
 void	parsing(t_cmd *cmd);
 char	*parse_exec(char *cmd, int *err);
+char	*get_relative_path(char *cmd);
+char	*get_absolute_path(char *cmd);
 char	*replace_variables(char *str, int err); //just testing
 t_cmd	*get_next_cmd(t_cmd *head, int *err);
+int		is_builtin(char *cmd);
 
 #endif

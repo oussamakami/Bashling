@@ -6,21 +6,21 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:07:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/20 11:47:41 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 01:01:01 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static char	*get_relative_path(char *cmd)
+char	*get_relative_path(char *cmd)
 {
 	char	*work_dir;
 	char	*result;
 
-	work_dir = get_work_dir();
-	result = NULL;
 	if (!cmd)
 		return (NULL);
+	result = NULL;
+	work_dir = get_work_dir();
 	if (cmd[0] == '~')
 		result = replace_word(cmd, "~", getenv("HOME"), 0);
 	else if (cmd[0] == '.')
@@ -34,7 +34,7 @@ static char	*get_relative_path(char *cmd)
 	return (result);
 }
 
-static char	*get_absolute_path(char *cmd)
+char	*get_absolute_path(char *cmd)
 {
 	int		index;
 	char	*result;

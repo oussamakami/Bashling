@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executions.h                                       :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 10:48:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 01:10:13 by okamili          ###   ########.fr       */
+/*   Created: 2023/05/28 00:43:26 by okamili           #+#    #+#             */
+/*   Updated: 2023/05/28 01:11:28 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTIONS_H
-# define EXECUTIONS_H
+#include "parsing.h"
 
-# include <sys/wait.h>
-# include "../libft/libft.h"
-# include "../modules/modules.h"
-# include "../parsing/parsing.h"
+int	is_builtin(char *cmd)
+{
+	int len;
 
-void	pwd(void);
-void	cd(t_cmd *cmd);
-void	run_commands(t_cmd *cmd);
-t_cmd	*run_pipe_commands(t_cmd *cmds, int *err);
-#endif
+	len = ft_strlen(cmd);
+	if ((len == 3 && !ft_strncmp("pwd", cmd, 3))
+		|| (len == 2 && !ft_strncmp("cd", cmd, 2)))
+		return (1);
+	return (0);
+}
