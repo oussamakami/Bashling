@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:52:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 19:59:39 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 07:08:36 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	erase_cmd_node(t_cmd *cmd_pointer)
 	if (cmd_pointer)
 	{
 		free(cmd_pointer->cmd);
+		free(cmd_pointer->exec);
 		free2d((void **)cmd_pointer->args);
 		free2d((void **)cmd_pointer->redir_files);
 		free2d((void **)cmd_pointer->redir_sym);

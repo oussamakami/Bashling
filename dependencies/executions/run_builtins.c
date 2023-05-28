@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 04:04:31 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 07:11:11 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void	cd(t_cmd *cmd)
 
 void	echo(t_cmd *cmd)
 {
-	int	i;
-	int	new_line;
+	int		i;
+	int		new_line;
+	char	*tmp;
 
 	i = 1;
 	while (cmd->args[i] && !ft_strncmp("-n", cmd->args[i], 2))
@@ -61,12 +62,21 @@ void	echo(t_cmd *cmd)
 	new_line = (i == 1);
 	while (cmd->args[i])
 	{
-		printf("%s", clean_quotes(cmd->args[i++]));
+		tmp = clean_quotes(cmd->args[i++]);
+		printf("%s", tmp);
+		free(tmp);
 		if (cmd->args[i])
 			printf(" ");
 	}
 	if (new_line)
 		printf("\n");
+}
+
+void	close_prgm(t_cmd *cmd)
+{
+	destory_all_env(g_env);
+	free_cmd_tree(cmd);
+	exit(0);	
 }
 
 void	run_builtins(t_cmd *cmd)
@@ -80,4 +90,6 @@ void	run_builtins(t_cmd *cmd)
 		pwd();
 	if (len == 4 && !ft_strncmp("echo", cmd->exec, 4))
 		echo(cmd);
+	if (len == 4 && !ft_strncmp("exit", cmd->exec, 4))
+		close_prgm(cmd);
 }
