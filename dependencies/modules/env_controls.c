@@ -6,13 +6,13 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:54:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/27 22:54:18 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 04:05:16 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "modules.h"
 
-t_env	*env_data;
+t_env	*g_env;
 
 t_env	*last_env(t_env *head)
 {
@@ -68,8 +68,8 @@ void	destory_all_env(t_env *head)
 char	*fetch(char *var_name)
 {
 	t_env			*tmp;
-	
-	tmp = find_env(env_data, var_name);
+
+	tmp = find_env(g_env, var_name);
 	if (tmp)
 		return (tmp->value);
 	return (getenv(var_name));

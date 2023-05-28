@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 01:30:43 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 04:04:31 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	pwd(void)
 {
-	char *holder;
+	char	*holder;
 
 	holder = getcwd(NULL, 0);
 	if (holder)
-        printf("p%s\n", holder);
+		printf("%s\n", holder);
 	else
-        perror("Minishell: pwd");
+		perror("Minishell: pwd");
 	free(holder);
 }
 
 void	cd(t_cmd *cmd)
 {
-	char *temp;
-	char *path;
+	char	*temp;
+	char	*path;
 
 	path = cmd->args[1];
 	if (path && cmd->args[2])
@@ -46,6 +46,38 @@ void	cd(t_cmd *cmd)
 		perror("Minishell: cd");
 		cmd->error = 1;
 	}
-	env_data = add_env(env_data, "OLDPWD", temp);
+	g_env = add_env(g_env, "OLDPWD", temp);
 	free(temp);
+}
+
+void	echo(t_cmd *cmd)
+{
+	int	i;
+	int	new_line;
+
+	i = 1;
+	while (cmd->args[i] && !ft_strncmp("-n", cmd->args[i], 2))
+		i++;
+	new_line = (i == 1);
+	while (cmd->args[i])
+	{
+		printf("%s", clean_quotes(cmd->args[i++]));
+		if (cmd->args[i])
+			printf(" ");
+	}
+	if (new_line)
+		printf("\n");
+}
+
+void	run_builtins(t_cmd *cmd)
+{
+	int	len;
+
+	len = ft_strlen(cmd->exec);
+	if (len == 2 && !ft_strncmp("cd", cmd->exec, 2))
+		cd(cmd);
+	if (len == 3 && !ft_strncmp("pwd", cmd->exec, 3))
+		pwd();
+	if (len == 4 && !ft_strncmp("echo", cmd->exec, 4))
+		echo(cmd);
 }

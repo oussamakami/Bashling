@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:02 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/27 22:48:10 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 04:04:07 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct env_vars
 	struct env_vars	*next;
 }	t_env;
 
-extern t_env	*env_data;
+extern t_env	*g_env;
 void	*ft_realloc(void *ptr, size_t size);
 char	*get_work_dir(void);
 char	*get_host_name(void);

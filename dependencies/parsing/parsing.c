@@ -6,13 +6,13 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:09 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 00:46:38 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 03:38:21 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static char	*clean_exec(char *cmd)
+char	*clean_quotes(char *cmd)
 {
 	int		i;
 	int		dquotes;
@@ -49,7 +49,7 @@ void	parsing(t_cmd *cmd)
 	temp = replace_variables(cmd->cmd, cmd->prev_error);
 	cmd->args = parse_args(temp);
 	free(temp);
-	temp = clean_exec(cmd->args[0]);
+	temp = clean_quotes(cmd->args[0]);
 	if (is_builtin(temp))
 		cmd->exec = temp;
 	else

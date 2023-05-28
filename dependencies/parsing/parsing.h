@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 00:53:23 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/28 03:38:28 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char	*get_relative_path(char *cmd);
 char	*get_absolute_path(char *cmd);
 char	*replace_variables(char *str, int err); //just testing
 t_cmd	*get_next_cmd(t_cmd *head, int *err);
+char	*clean_quotes(char *cmd);
 int		is_builtin(char *cmd);
 
 #endif
