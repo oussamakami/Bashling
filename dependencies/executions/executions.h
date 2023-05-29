@@ -6,13 +6,15 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:48:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/29 03:04:35 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 00:36:37 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTIONS_H
 # define EXECUTIONS_H
 
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 # include <sys/wait.h>
 # include "../libft/libft.h"
 # include "../modules/modules.h"

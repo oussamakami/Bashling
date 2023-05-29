@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/29 21:26:45 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 00:27:02 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,6 @@ void	echo(t_cmd *cmd)
 	}
 	if (new_line)
 		printf("\n");
-}
-
-void	close_prgm(t_cmd *cmd)
-{
-	int	temp;
-
-	temp = -1;
-	rl_clear_history();
-	destory_all_env(g_env);
-	if (!cmd)
-		exit(0);
-	while (cmd->args[1] && cmd->args[1][++temp])
-	{
-		if (cmd->args[1][temp] < '0' || cmd->args[1][temp] > '9')
-		{
-			temp = 0;
-			break ;
-		}
-	}
-	if (cmd->args[1] && temp)
-		temp = ft_atoi(cmd->args[1]);
-	free_cmd_tree(cmd);
-	if (temp > 255)
-		temp = 255;
-	else if (temp < 0)
-		temp = 0;
-	printf("exit\n");
-	exit(temp);
 }
 
 void	run_builtins(t_cmd *cmd)
