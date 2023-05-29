@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/29 03:06:38 by okamili           #+#    #+#             */
+/*   Updated: 2023/05/29 03:09:04 by okamili          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "core.h"
 
 void	sig_handler(int sign)
 {
-	char *msg;
+	char	*msg;
+
 	if (sign == SIGINT)
 	{
 		msg = prompt_msg();
@@ -11,22 +24,21 @@ void	sig_handler(int sign)
 	}
 }
 
-
-int	main()
+int	main(void)
 {
 	int		err;
+	char	*input;
 	t_cmd	*cmds;
-    char	*input;
 
 	signal(SIGINT, sig_handler);
 	err = 0;
-    while (1)
+	while (1)
 	{
-        input = prompt();
+		input = prompt();
 		if (!input)
 		{
-			printf("\n");
-			exit(0);
+			printf("\nexit\n");
+			close_prgm(NULL);
 		}
 		add_history(input);
 		cmds = input_split(input, &err);
@@ -42,6 +54,6 @@ int	main()
 				run_commands(cmds);
 			cmds = get_next_cmd(cmds, &err);
 		}
-    }
-    return 0;
+	}
+	return (0);
 }
