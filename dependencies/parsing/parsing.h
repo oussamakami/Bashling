@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 03:38:28 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/29 05:19:01 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,83 @@ void	erase_cmd_node(t_cmd *cmd_pointer);
  * @param head Reference to the beginning of the t_cmd tree.
  */
 void	free_cmd_tree(t_cmd *head);
+/**
+ * @brief Divide the user input into multiple t_cmd nodes.
+ * 
+ * @param input input User input.
+ * @param err Reference to a variable for storing the last error code.
+ * @return t_cmd* Reference to the t_cmd tree.
+ */
 t_cmd	*input_split(char *input, int *err);
+/**
+ * @brief Check the separator between each command node.
+ * 
+ * @param cmd Reference to the beginning of the t_cmd tree.
+ * @return int (1) for incorrect separator and (0) for success.
+ */
 int		check_separator(t_cmd *cmd);
+/**
+ * @brief Extract the arguments from the command.
+ * 
+ * @param cmd Pointer to the command.
+ * @return char** Pointer to a 2D array containing the arguments.
+ */
 char	**parse_args(char *cmd);
+/**
+ * @brief Extracts both redirection symbols and files from the given command.
+ * 
+ * @param cmd Pointer to the command.
+ * @return char** Pointer to a 2D array containing the extracted redirections.
+ */
 char	**extract_redir(char *cmd);
+/**
+ * @brief Checks if an executable is built-in.
+ * 
+ * @param exec String containing the executable.
+ * @return int (1) if the executable is built-in, and (0) otherwise.
+ */
+int		is_builtin(char *exec);
+/**
+ * @brief Retrieves the relative path of the executable.
+ * 
+ * @param exec String containing the executable.
+ * @return char* String containing the relative path.
+ */
+char	*get_relative_path(char *exec);
+/**
+ * @brief Retrieves the absolute path of the executable.
+ * 
+ * @param exec String containing the executable.
+ * @return char* String containing the absolute path.
+ */
+char	*get_absolute_path(char *exec);
+/**
+ * @brief Populates the redirection data in the t_cmd tree.
+ * 
+ * @param head Reference to the beginning of the t_cmd tree.
+ */
 void	parse_redir(t_cmd *head);
-void	parsing(t_cmd *cmd);
+/**
+ * @brief Retrieves the executable from the command.
+ * 
+ * @param cmd Pointer to the command.
+ * @param err Reference to a variable for storing the error code.
+ * @return char* String containing the executable.
+ */
 char	*parse_exec(char *cmd, int *err);
-char	*get_relative_path(char *cmd);
-char	*get_absolute_path(char *cmd);
+/**
+ * @brief Removes the outer layer of quotes from a string.
+ * 
+ * @param str Pointer to the string.
+ * @return char* Pointer to the new string.
+ */
+char	*clean_quotes(char *str);
+
+
+
+
+void	parsing(t_cmd *cmd);
 char	*replace_variables(char *str, int err); //just testing
 t_cmd	*get_next_cmd(t_cmd *head, int *err);
-char	*clean_quotes(char *cmd);
-int		is_builtin(char *cmd);
 
 #endif
