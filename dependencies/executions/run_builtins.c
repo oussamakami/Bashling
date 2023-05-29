@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 07:11:11 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/29 02:48:42 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,27 @@ void	echo(t_cmd *cmd)
 
 void	close_prgm(t_cmd *cmd)
 {
+	int	temp;
+
+	temp = -1;
+	while (cmd->args[1] && cmd->args[1][++temp])
+	{
+		if (cmd->args[1][temp] < '0' || cmd->args[1][temp] > '9')
+		{
+			temp = 0;
+			break ;
+		}
+	}
+	if (cmd->args[1] && temp)
+		temp = ft_atoi(cmd->args[1]);
 	destory_all_env(g_env);
 	free_cmd_tree(cmd);
-	exit(0);	
+	if (temp > 255)
+		temp = 255;
+	else if (temp < 0)
+		temp = 0;
+	printf("exit\n");
+	exit(temp);
 }
 
 void	run_builtins(t_cmd *cmd)
