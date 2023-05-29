@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/29 03:05:11 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/29 05:40:58 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	close_prgm(t_cmd *cmd)
 	int	temp;
 
 	temp = -1;
+	rl_clear_history();
 	destory_all_env(g_env);
 	if (!cmd)
 		exit(0);

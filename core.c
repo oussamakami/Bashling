@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 03:06:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/29 03:09:04 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/29 05:53:26 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	sig_handler(int sign)
 {
-	char	*msg;
-
 	if (sign == SIGINT)
 	{
-		msg = prompt_msg();
-		printf("\n%s", msg);
-		free(msg);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay(); 
 	}
 }
 
