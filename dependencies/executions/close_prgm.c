@@ -6,13 +6,13 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 00:26:37 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 01:59:00 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 04:45:55 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executions.h"
 
-static long long	parse_int(char *str, int *err)
+static long long	parse_num(char *str, int *err)
 {
 	int			sign;
 	long long	result;
@@ -32,7 +32,8 @@ static long long	parse_int(char *str, int *err)
 	{
 		prev_result = result;
 		result = (result * 10) + (str[0] - '0');
-		if (prev_result > result)
+		if ((prev_result > result && sign == 1)
+			|| (prev_result > result && sign == -1 && str[0] == '9'))
 			*err = 1;
 		str++;
 	}
@@ -43,36 +44,48 @@ static int	extract_err_code(char *code)
 {
 	int			err;
 	long long	i;
-	size_t		result;
 
 	if (!code)
 		return (-1);
 	i = -1;
-	result = 0;
 	if (code[0] == '-' || code[0] == '+')
 		i++;
 	while (code[++i])
+	{
 		if (code[i] < '0' || code[i] > '9')
+		{
+			ft_putstr_fd("Minishell: exit: numeric argument required\n", 2);
 			return (2);
+		}
+	}
 	err = 0;
-	i = parse_int(code, &err);
+	i = parse_num(code, &err);
 	if (err)
+	{
+		ft_putstr_fd("Minishell: exit: numeric argument required\n", 2);
 		return (2);
-	else
-		result = i;
-	result %= 256;
-	return (result);
+	}
+	return ((size_t)i % 256);
 }
 
 void	close_prgm(t_cmd *cmd)
 {
-	int	errnm;
+	char	*tmp;
+	int		errnm;
 
-	rl_clear_history();
-	destory_all_env(g_env);
 	if (!cmd)
 		exit(0);
-	errnm = extract_err_code(cmd->args[1]);
+	if (cmd->args[1] && cmd->args[2])
+	{
+		ft_putstr_fd("Minishell: exit: too many arguments\n", 2);
+		cmd->error = 1;
+		return ;
+	}
+	rl_clear_history();
+	destory_all_env(g_env);
+	tmp = clean_quotes(cmd->args[1]);
+	errnm = extract_err_code(tmp);
+	free(tmp);
 	if (errnm < 0)
 		errnm = cmd->prev_error;
 	free_cmd_tree(cmd);

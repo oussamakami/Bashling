@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:07:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 01:01:01 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 04:48:09 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	print_error(char *cmd, char *path, int *err)
 	if (!*err && (!path || access(path, F_OK)))
 	{
 		*err = 127;
-		tmp = replace_word("Minishell: E: Command not found\n", "E", cmd, 0);
+		tmp = replace_word("Minishell: E: command not found\n", "E", cmd, 0);
 	}
 	if (!*err && !tmp && !stat(path, &stats))
 	{
