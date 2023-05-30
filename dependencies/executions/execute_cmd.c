@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 07:05:22 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 02:38:26 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,21 @@ static void	execute_cmd(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2])
 	{
 		if (!cmd->error)
 			execute_process(cmd, pfd, red, newpfd);
-		exit(0);
+		exit(cmd->error);
 	}
 }
 
 void	run_commands(t_cmd *cmd)
 {
+	int	status;
+
 	if (is_builtin(cmd->exec))
 		run_builtins(cmd);
 	else
 		execute_cmd(cmd, NULL, (int [2]){0, 0}, NULL);
-	wait(NULL);
+	wait(&status);
+	if (!cmd->error)
+		cmd->error = WEXITSTATUS(status);
 }
 
 static int	exec_pipes(t_cmd *cmds, int pfd[2], int oldpfd[2], int count)
@@ -92,6 +96,7 @@ t_cmd	*run_pipe_commands(t_cmd *cmds, int *err)
 	int	count;
 	int	pfd[2];
 	int	oldpfd[2];
+	int	status;
 
 	count = 0;
 	while (cmds)
@@ -103,7 +108,8 @@ t_cmd	*run_pipe_commands(t_cmd *cmds, int *err)
 	}
 	close(pfd[0]);
 	close(pfd[1]);
-	while (wait(NULL) > 0)
+	while (wait(&status) > 0)
 		continue ;
+	cmds->error = WEXITSTATUS(status);
 	return (cmds);
 }
