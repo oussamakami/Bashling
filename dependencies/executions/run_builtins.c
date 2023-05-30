@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 00:27:02 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 04:04:49 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	cd(t_cmd *cmd)
 	if (ft_strlen(path) == 1 && path[0] == '-')
 		path = fetch("OLDPWD");
 	temp = getcwd(NULL, 0);
+	if (!temp)
+		perror("Minishell: cd");
 	path = replace_word(path, "~", fetch("HOME"), 0);
 	if (chdir(path))
 	{

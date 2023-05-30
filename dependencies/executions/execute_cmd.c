@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 02:38:26 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 03:56:40 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	run_commands(t_cmd *cmd)
 	else
 		execute_cmd(cmd, NULL, (int [2]){0, 0}, NULL);
 	wait(&status);
-	if (!cmd->error)
+	if (!cmd->error && !is_builtin(cmd->exec))
 		cmd->error = WEXITSTATUS(status);
 }
 
