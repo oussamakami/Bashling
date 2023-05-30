@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 05:15:01 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 05:57:32 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ char	*clean_quotes(char *str);
 void	parsing(t_cmd *cmd);
 char	*replace_variables(char *str, int err); //just testing
 t_cmd	*get_next_cmd(t_cmd *head, int *err);
+void	check_redir(t_cmd *cmd); //just testing
 
 #endif

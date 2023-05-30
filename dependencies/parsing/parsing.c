@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:09 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 03:38:21 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 08:26:43 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,11 @@ void	parsing(t_cmd *cmd)
 	temp = replace_variables(cmd->cmd, cmd->prev_error);
 	cmd->args = parse_args(temp);
 	free(temp);
+	parse_redir(cmd);
+	check_redir(cmd);
 	temp = clean_quotes(cmd->args[0]);
 	if (is_builtin(temp))
 		cmd->exec = temp;
 	else
 		cmd->exec = parse_exec(temp, &cmd->error);
-	if (ft_strchr(";|", cmd->cmd[ft_strlen(cmd->cmd) - 1]))
-		cmd->sep = cmd->cmd + (ft_strlen(cmd->cmd) - 1);
-	parse_redir(cmd);
 }

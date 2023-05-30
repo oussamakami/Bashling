@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:27 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/19 19:53:56 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 07:08:29 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_error(char *s)
 {
-	ft_putstr_fd("minishell: Syntax error near unexpected token `", 2);
+	ft_putstr_fd("Minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd("'\n", 2);
 }
@@ -32,10 +32,15 @@ static char	*get_separator(char *str)
 	result = ft_calloc(2, 1);
 	while (str[0])
 	{
-		if (ft_strchr(";|", str[0]) && (!(dquotes & 1) && !(squotes & 1)))
+		if ((!(dquotes & 1) && !(squotes & 1)))
 		{
-			result[index++] = str[0];
-			result = ft_realloc(result, ft_strlen(result) + 2);
+			if (ft_strchr("<>", str[0]) && ft_strchr(";|", str[1]))
+				str++;
+			else if (ft_strchr(";|", str[0]))
+			{
+				result[index++] = str[0];
+				result = ft_realloc(result, ft_strlen(result) + 2);
+			}
 		}
 		dquotes += (!(squotes & 1) && str[0] == '"');
 		squotes += (!(dquotes & 1) && str[0] == '\'');
@@ -58,6 +63,7 @@ int	check_separator(t_cmd *cmds)
 			free(temp);
 			return (1);
 		}
+		cmds->sep = strdup(temp);
 		free(temp);
 		cmds = cmds->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 03:56:40 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/30 06:15:31 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	run_commands(t_cmd *cmd)
 {
 	int	status;
 
-	if (is_builtin(cmd->exec))
+	if (is_builtin(cmd->exec) && !cmd->error)
 		run_builtins(cmd);
 	else
 		execute_cmd(cmd, NULL, (int [2]){0, 0}, NULL);
