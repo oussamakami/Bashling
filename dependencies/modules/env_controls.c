@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:54:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 04:05:16 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 01:07:47 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_env	*find_env(t_env *head, char *name)
 {
 	while (head)
 	{
-		if (!ft_strncmp(head->name, name, ft_strlen(name)))
+		if (ft_strlen(head->name) == ft_strlen(name)
+			&& !ft_strncmp(head->name, name, ft_strlen(name)))
 			return (head);
 		head = head->next;
 	}

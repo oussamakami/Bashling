@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_builtin.c                                       :+:      :+:    :+:   */
+/*   list_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/28 00:43:26 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 00:37:58 by okamili          ###   ########.fr       */
+/*   Created: 2023/05/30 23:53:11 by okamili           #+#    #+#             */
+/*   Updated: 2023/05/31 00:48:24 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "executions.h"
 
-int	is_builtin(char *cmd)
+void	list_env(void)
 {
-	int	len;
+	t_env	*temp;
 
-	len = ft_strlen(cmd);
-	if ((len == 3 && !ft_strncmp("pwd", cmd, 3))
-		|| (len == 2 && !ft_strncmp("cd", cmd, 2))
-		|| (len == 3 && !ft_strncmp("env", cmd, 3))
-		|| (len == 4 && !ft_strncmp("echo", cmd, 4))
-		|| (len == 4 && !ft_strncmp("exit", cmd, 4)))
-		return (1);
-	return (0);
+	temp = g_env;
+	while (temp)
+	{
+		printf("%s=%s\n", temp->name, temp->value);
+		temp = temp->next;
+	}
 }

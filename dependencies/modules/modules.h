@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:02 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 04:04:07 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 00:46:45 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ t_env	*find_env(t_env *head, char *name);
 t_env	*add_env(t_env *head, char *name, char *value);
 void	destory_all_env(t_env *head);
 char	*fetch(char *var_name);
+void	env_init(int argc, char **argv, char **env);
 
 #endif

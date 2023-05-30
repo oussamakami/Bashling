@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 03:06:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/29 05:53:26 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 00:44:24 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	sig_handler(int sign)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	int		err;
 	char	*input;
 	t_cmd	*cmds;
 
+	env_init(argc, argv, env);
 	signal(SIGINT, sig_handler);
 	err = 0;
 	while (1)
