@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:02 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 00:46:45 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 04:47:09 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct env_vars
 {
 	char			*name;
 	char			*value;
+	int				hide;
 	struct env_vars	*next;
 }	t_env;
 

@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:07:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 03:06:31 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 05:00:37 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_absolute_path(char *cmd)
 	char	**template;
 
 	index = -1;
-	template = ft_split(getenv("PATH"), ':');
+	template = ft_split(fetch("PATH"), ':');
 	while (template && template[++index] && cmd)
 	{
 		result = replace_word("P/E", "E", cmd, 0);

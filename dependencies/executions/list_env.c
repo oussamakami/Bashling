@@ -6,11 +6,58 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:53:11 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 00:48:24 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 05:04:55 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executions.h"
+
+static int	check_unset_arg(char *arg)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (arg && arg[++i])
+	{
+		if (!((arg[i] >= 'a' && arg[i] <= 'z')
+				|| (arg[i] >= 'A' && arg[i] <= 'Z')
+				|| ((arg[i] >= '0' && arg[i] <= '9') && i)
+				|| arg[i] == '_'))
+		{
+			tmp = replace_word("Minishell: unset: `X': "
+					"not a valid identifier\n", "X", arg, 0);
+			ft_putstr_fd(tmp, 2);
+			free(tmp);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void	unset_env(t_cmd *cmd)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	while (cmd->args[++i])
+	{
+		cmd->error = check_unset_arg(cmd->args[i]);
+		if (!cmd->error)
+		{
+			tmp = find_env(g_env, cmd->args[i]);
+			if (tmp)
+			{
+				free(tmp->value);
+				tmp->value = ft_strdup("");
+				tmp->hide = 1;
+			}
+		}
+		else
+			break ;
+	}
+}
 
 void	list_env(void)
 {
@@ -19,7 +66,8 @@ void	list_env(void)
 	temp = g_env;
 	while (temp)
 	{
-		printf("%s=%s\n", temp->name, temp->value);
+		if (!temp->hide)
+			printf("%s=%s\n", temp->name, temp->value);
 		temp = temp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 00:43:26 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 00:37:58 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 04:34:18 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	is_builtin(char *cmd)
 		|| (len == 2 && !ft_strncmp("cd", cmd, 2))
 		|| (len == 3 && !ft_strncmp("env", cmd, 3))
 		|| (len == 4 && !ft_strncmp("echo", cmd, 4))
+		|| (len == 5 && !ft_strncmp("unset", cmd, 5))
 		|| (len == 4 && !ft_strncmp("exit", cmd, 4)))
 		return (1);
 	return (0);
