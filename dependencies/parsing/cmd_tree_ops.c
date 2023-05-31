@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:52:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 07:08:36 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 03:13:43 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	erase_cmd_node(t_cmd *cmd_pointer)
 		free2d((void **)cmd_pointer->args);
 		free2d((void **)cmd_pointer->redir_files);
 		free2d((void **)cmd_pointer->redir_sym);
+		free(cmd_pointer->sep);
 		free(cmd_pointer);
 	}
 }

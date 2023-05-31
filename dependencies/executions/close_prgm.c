@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 00:26:37 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 04:45:55 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 02:49:54 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static int	extract_err_code(char *code)
 
 void	close_prgm(t_cmd *cmd)
 {
-	char	*tmp;
 	int		errnm;
 
 	if (!cmd)
@@ -83,9 +82,7 @@ void	close_prgm(t_cmd *cmd)
 	}
 	rl_clear_history();
 	destory_all_env(g_env);
-	tmp = clean_quotes(cmd->args[1]);
-	errnm = extract_err_code(tmp);
-	free(tmp);
+	errnm = extract_err_code(cmd->args[1]);
 	if (errnm < 0)
 		errnm = cmd->prev_error;
 	free_cmd_tree(cmd);

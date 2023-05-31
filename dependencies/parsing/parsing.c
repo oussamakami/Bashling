@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:09 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 08:26:43 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 03:14:17 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ void	parsing(t_cmd *cmd)
 	free(temp);
 	parse_redir(cmd);
 	check_redir(cmd);
-	temp = clean_quotes(cmd->args[0]);
-	if (is_builtin(temp))
-		cmd->exec = temp;
+	if (is_builtin(cmd->args[0]))
+		cmd->exec = ft_strdup(cmd->args[0]);
 	else
-		cmd->exec = parse_exec(temp, &cmd->error);
+		cmd->exec = parse_exec(cmd->args[0], &cmd->error);
 }

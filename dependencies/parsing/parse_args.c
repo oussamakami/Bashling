@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:01 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:42:02 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 02:37:52 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	**parse_args(char *cmd)
 {
 	int		index;
 	int		count;
+	char	*tmp;
 	char	**result;
 
 	index = 0;
@@ -66,14 +67,15 @@ char	**parse_args(char *cmd)
 		while (cmd[0] && ft_strchr("\t ", cmd[0]))
 			cmd++;
 		if (ft_strchr("><", cmd[0]))
-		{
 			while (ft_strchr("\t ><", cmd[0]))
 				cmd++;
-			cmd = next_arg(cmd);
-			continue ;
+		else
+		{
+			tmp = ft_substr(cmd, 0,
+					(ft_strlen(cmd) - ft_strlen(next_arg(cmd))));
+			result[index++] = clean_quotes(tmp);
+			free(tmp);
 		}
-		result[index++] = ft_substr(cmd, 0,
-				(ft_strlen(cmd) - ft_strlen(next_arg(cmd))));
 		cmd = next_arg(cmd);
 	}
 	return (result);

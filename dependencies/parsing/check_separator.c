@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:27 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 07:08:29 by okamili          ###   ########.fr       */
+/*   Updated: 2023/05/31 03:26:03 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*get_separator(char *str)
 	index = 0;
 	dquotes = 0;
 	squotes = 0;
-	result = ft_calloc(2, 1);
+	result = ft_calloc(3, 1);
 	while (str[0])
 	{
 		if ((!(dquotes & 1) && !(squotes & 1)))
