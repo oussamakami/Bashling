@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:19:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 00:51:15 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/01 04:48:51 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,44 @@ void	env_init(int argc, char **argv, char **env)
 		free(name);
 		free(val);
 	}
+}
+
+static int	g_env_length(void)
+{
+	int		len;
+	t_env	*tmp;
+
+	len = 0;
+	tmp = g_env;
+	while (tmp)
+	{
+		if (!tmp->hide)
+			len++;
+		tmp = tmp->next;
+	}
+	return (len);
+}
+
+char	**export_env(void)
+{
+	t_env	*tmp;
+	int		len;
+	int		index;
+	char	*holder;
+	char	**result;
+
+	index = 0;
+	len = g_env_length();
+	tmp = g_env;
+	result = ft_calloc(len + 1, sizeof(char *));
+	while (index < len && tmp)
+	{
+		if (!tmp->hide)
+		{
+			holder = replace_word("#NAME#=#VALUE#", "#NAME#", tmp->name, 0);
+			result[index++] = replace_word(holder, "#VALUE#", tmp->value, 1);
+		}
+		tmp = tmp->next;
+	}
+	return (result);
 }
