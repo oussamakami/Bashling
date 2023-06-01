@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 04:33:54 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/01 02:19:34 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,6 @@ void	run_builtins(t_cmd *cmd)
 		list_env();
 	if (len == 5 && !ft_strncmp("unset", cmd->exec, 5))
 		unset_env(cmd);
+	if (len == 6 && !ft_strncmp("export", cmd->exec, 6))
+		run_export(cmd);
 }
