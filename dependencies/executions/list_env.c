@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:53:11 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 05:04:55 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/01 01:56:43 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	unset_env(t_cmd *cmd)
 			if (tmp)
 			{
 				free(tmp->value);
-				tmp->value = ft_strdup("");
+				tmp->value = NULL;
 				tmp->hide = 1;
 			}
 		}

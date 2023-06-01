@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:54:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 05:00:58 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/01 02:05:39 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,22 @@ t_env	*add_env(t_env *head, char *name, char *value)
 	t_env	*new;
 	t_env	*tmp;
 
+	if (!name)
+		return (head);
 	tmp = find_env(head, name);
 	if (tmp)
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(value);
+		tmp->value = NULL;
+		if (value)
+			tmp->value = ft_strdup(value);
 		tmp->hide = 0;
 		return (head);
 	}
-	new = malloc(sizeof(t_env));
+	new = ft_calloc(1, sizeof(t_env));
 	new->name = ft_strdup(name);
-	new->value = ft_strdup(value);
-	new->hide = 0;
-	new->next = NULL;
+	if (value)
+		new->value = ft_strdup(value);
 	tmp = last_env(head);
 	if (!tmp)
 		return (new);
