@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/01 04:51:30 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/03 10:52:55 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	execute_process(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2])
 	}
 	if (is_builtin(cmd->exec))
 		run_builtins(cmd);
-	else
+	else if (cmd->exec)
 	{
 		env = export_env();
 		execve(cmd->exec, cmd->args, env);
