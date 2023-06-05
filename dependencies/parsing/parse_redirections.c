@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 06:03:49 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/05 06:37:08 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,6 @@ void	init_redi_arg(t_cmd *cmd, int size)
 {
 		cmd->redir_files = ft_calloc(size + 1, sizeof(char *));
 		cmd->redir_sym = ft_calloc(size + 1, sizeof(char *));
-}
-
-void	parse_redir(t_cmd *cmd)
-{
-	int		index0;
-	int		index1;
-	int		length;
-	char	**redi_extracted;
-
-	if (cmd)
-	{
-		index0 = 0;
-		index1 = 0;
-		redi_extracted = extract_redir(cmd->cmd);
-		length = ft_atoi(redi_extracted[0]);
-		free(redi_extracted[0]);
-		init_redi_arg(cmd, length / 2);
-		while (++index0 <= length)
-		{
-			if (index0 % 2)
-				cmd->redir_sym[index1] = redi_extracted[index0];
-			else
-				cmd->redir_files[index1++] = redi_extracted[index0];
-		}
-		free(redi_extracted);
-	}
 }
 
 static char	*extract_err_sym(char *sym)
@@ -57,7 +31,7 @@ static char	*extract_err_sym(char *sym)
 	return (sym);
 }
 
-void	check_redir(t_cmd *cmd)
+static int	check_redir(t_cmd *cmd)
 {
 	int		i;
 	int		len;
@@ -78,9 +52,38 @@ void	check_redir(t_cmd *cmd)
 			tmp = extract_err_sym(cmd->redir_sym[i]);
 	}
 	if (!tmp)
-		return ;
+		return (0);
 	tmp = replace_word("Minishell: syntax error near "
 			"unexpected token `X'\n", "X", tmp, 0);
 	ft_putstr_fd(tmp, 2);
-	cmd->error = 2;
+	free(tmp);
+	return (1);
+}
+
+int	parse_redir(t_cmd *cmd)
+{
+	int		index0;
+	int		index1;
+	int		length;
+	char	**redi_extracted;
+
+	while (cmd)
+	{
+		index0 = 0;
+		index1 = 0;
+		redi_extracted = extract_redir(cmd->cmd);
+		length = ft_atoi(redi_extracted[0]);
+		free(redi_extracted[0]);
+		init_redi_arg(cmd, length / 2);
+		while (++index0 <= length)
+			if (index0 % 2)
+				cmd->redir_sym[index1] = redi_extracted[index0];
+		else
+			cmd->redir_files[index1++] = redi_extracted[index0];
+		free(redi_extracted);
+		if (check_redir(cmd))
+			return (1);
+		cmd = cmd->next;
+	}
+	return (0);
 }

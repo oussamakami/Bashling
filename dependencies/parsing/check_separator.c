@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:27 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 03:26:03 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/05 06:18:36 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*get_separator(char *str)
 	{
 		if ((!(dquotes & 1) && !(squotes & 1)))
 		{
-			if (ft_strchr("<>", str[0]) && ft_strchr(";|", str[1]))
+			if (str[1] && ft_strchr("<>", str[0]) && ft_strchr(";|", str[1]))
 				str++;
 			else if (ft_strchr(";|", str[0]))
 			{

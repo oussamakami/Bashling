@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/30 05:57:32 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/05 06:16:39 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,6 @@ char	*get_relative_path(char *exec);
  */
 char	*get_absolute_path(char *exec);
 /**
- * @brief Populates the redirection data in the t_cmd node.
- * 
- * @param cmd Reference to the t_cmd node.
- */
-void	parse_redir(t_cmd *cmd);
-/**
  * @brief Retrieves the executable from the command.
  * 
  * @param cmd Pointer to the command.
@@ -155,10 +149,14 @@ char	*clean_quotes(char *str);
 
 
 
-
+/**
+ * @brief Populates the redirection data in the t_cmd node.
+ * 
+ * @param cmd Reference to the t_cmd node.
+ */
+int	parse_redir(t_cmd *cmd);
 void	parsing(t_cmd *cmd);
-char	*replace_variables(char *str, int err); //just testing
+char	*replace_variables(char *str, int err);
 t_cmd	*get_next_cmd(t_cmd *head, int *err);
-void	check_redir(t_cmd *cmd); //just testing
 
 #endif

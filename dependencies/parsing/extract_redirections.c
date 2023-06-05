@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/15 12:41:56 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/05 06:23:47 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*extract_redi(char *cmd)
 	squotes = 0;
 	if (ft_strchr("><", cmd[i]))
 	{
-		while (ft_strchr("><", cmd[i]))
+		while (cmd[i] && ft_strchr("><", cmd[i]))
 			i++;
 		return (ft_substr(cmd, 0, i));
 	}
@@ -71,7 +71,7 @@ static int	redi_count(char *cmd)
 	while (cmd[0])
 	{
 		count++;
-		while (ft_strchr("><", cmd[0]))
+		while (cmd[0] && ft_strchr("><", cmd[0]))
 			cmd++;
 		cmd = next_redi(cmd);
 	}
