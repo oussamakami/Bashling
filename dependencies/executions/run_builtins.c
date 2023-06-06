@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/01 02:19:34 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/06 07:37:42 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,20 @@ void	echo(t_cmd *cmd)
 	int		new_line;
 
 	i = 1;
-	while (cmd->args[i] && ft_strlen(cmd->args[i]) == 2
-		&& !ft_strncmp("-n", cmd->args[i], 2))
+	new_line = 0;
+	while (cmd->args[i] && cmd->args[i][0] == '-')
+	{
+		if (ft_strlen(cmd->args[i]) == 2 && !ft_strncmp("-n", cmd->args[i], 2))
+			new_line = 1;
 		i++;
-	new_line = (i == 1);
+	}
 	while (cmd->args[i])
 	{
 		printf("%s", cmd->args[i]);
 		if (cmd->args[++i])
 			printf(" ");
 	}
-	if (new_line)
+	if (!new_line)
 		printf("\n");
 }
 
