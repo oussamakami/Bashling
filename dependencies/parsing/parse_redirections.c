@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/05 06:37:08 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/06 06:36:04 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,13 @@ int	parse_redir(t_cmd *cmd)
 		free(redi_extracted[0]);
 		init_redi_arg(cmd, length / 2);
 		while (++index0 <= length)
+		{
 			if (index0 % 2)
-				cmd->redir_sym[index1] = redi_extracted[index0];
-		else
-			cmd->redir_files[index1++] = redi_extracted[index0];
+				cmd->redir_sym[index1] = clean_quotes(redi_extracted[index0]);
+			else
+				cmd->redir_files[index1++] = clean_quotes(redi_extracted[index0]);
+			free(redi_extracted[index0]);
+		}
 		free(redi_extracted);
 		if (check_redir(cmd))
 			return (1);
