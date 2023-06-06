@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/06 06:29:33 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/06 08:18:33 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ t_cmd	*run_pipe_commands(t_cmd *cmds, int *err)
 	close(pfd[0]);
 	close(pfd[1]);
 	while (wait(&status) > 0)
-		continue ;
-	cmds->error = WEXITSTATUS(status);
+		continue;
 	return (cmds);
 }
