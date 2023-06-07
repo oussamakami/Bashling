@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/05 06:16:39 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/07 09:54:04 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 # include "../modules/modules.h"
 
@@ -27,6 +28,7 @@ typedef struct cmd_data
 	char			*sep;
 	int				error;
 	int				prev_error;
+	pid_t			process_id;
 	struct cmd_data	*next;
 }	t_cmd;
 

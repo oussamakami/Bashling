@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/06 08:18:33 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/07 10:20:07 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	execute_cmd(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2])
 	pid = fork();
 	if (pid == -1)
 		perror("fork: ");
+	cmd->process_id = pid;
 	if (pid == 0)
 	{
 		if (!cmd->error)
@@ -88,24 +89,55 @@ static int	exec_pipes(t_cmd *cmds, int pfd[2], int oldpfd[2], int count)
 	return (0);
 }
 
-t_cmd	*run_pipe_commands(t_cmd *cmds, int *err)
+static pid_t	*allocate_pids_block(t_cmd *cmds)
 {
 	int	count;
-	int	pfd[2];
-	int	oldpfd[2];
+
+	count = 0;
+	while (cmds && cmds->sep && cmds->sep[0] == '|')
+	{
+		count++;
+		cmds = cmds->next;
+	}
+	return (ft_calloc(count + 2, sizeof(pid_t)));
+}
+
+static	void	extract_err_code(t_cmd *cmds, pid_t *pids)
+{
+	int	count;
 	int	status;
 
 	count = 0;
+	while (pids[count])
+	{
+		waitpid(pids[count++], &status, 0);
+		cmds->error = WEXITSTATUS(status);
+	}
+	free(pids);
+}
+
+t_cmd	*run_pipe_commands(t_cmd *cmds, int *err)
+{
+	int		count;
+	int		pfd[2];
+	int		oldpfd[2];
+	pid_t	*pids;
+
+	count = 0;
+	pids = allocate_pids_block(cmds);
 	while (cmds)
 	{
 		pipe(pfd);
-		if (exec_pipes(cmds, pfd, oldpfd, count++))
+		if (exec_pipes(cmds, pfd, oldpfd, count))
+		{
+			pids[count] = cmds->process_id;
 			break ;
+		}
+		pids[count++] = cmds->process_id;
 		cmds = get_next_cmd(cmds, err);
 	}
 	close(pfd[0]);
 	close(pfd[1]);
-	while (wait(&status) > 0)
-		continue;
+	extract_err_code(cmds, pids);
 	return (cmds);
 }
