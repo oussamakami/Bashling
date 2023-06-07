@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/01 02:56:43 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/07 09:27:54 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ static char	*get_variable_name(char *str, int index)
 	int	i;
 
 	i = index + 1;
-	while (str[i] && !ft_strchr("\t ><;\"|'$", str[i]))
-		if (str[i++] == '?')
-			break ;
+	while (str[i] && ((str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z')
+			|| (str[i] >= '0' && str[i] <= '9')
+			|| str[i] == '_'))
+		i++;
+	i += (str[i] == '?');
 	return (ft_substr(str, index, i - index));
 }
 
