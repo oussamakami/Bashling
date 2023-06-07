@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 00:26:37 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 02:49:54 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/07 11:25:06 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 static long long	parse_num(char *str, int *err)
 {
+	int			dig;
 	int			sign;
 	long long	result;
-	long long	prev_result;
 
 	sign = 1;
 	result = 0;
-	while ((str[0] >= '\t' && str[0] <= '\r') || str[0] == ' ')
-		str++;
 	if (str[0] == '-' || str[0] == '+')
 	{
 		if (str[0] == '-')
@@ -30,11 +28,12 @@ static long long	parse_num(char *str, int *err)
 	}
 	while (str && !*err && str[0] >= '0' && str[0] <= '9')
 	{
-		prev_result = result;
-		result = (result * 10) + (str[0] - '0');
-		if ((prev_result > result && sign == 1)
-			|| (prev_result > result && sign == -1 && str[0] == '9'))
+		dig = (str[0] - '0');
+		if (result > 922337203685477580
+			|| (result == 922337203685477580 && dig > 7 && sign == 1)
+			|| (result == 922337203685477580 && dig > 8 && sign == -1))
 			*err = 1;
+		result = (result * 10) + dig;
 		str++;
 	}
 	return (result * sign);
