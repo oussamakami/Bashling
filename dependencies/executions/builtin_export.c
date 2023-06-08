@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 01:43:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/01 02:55:58 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 03:11:33 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,6 @@ static char	*env_val(char *str, int *err)
 	start = i + 1;
 	while (str && str[++i])
 		len++;
-	if (!len && str[--i] == '=')
-	{
-		ft_putstr_fd("Minishell: export: `=': "
-			"not a valid identifier\n", 2);
-		*err = 1;
-		return (NULL);
-	}
 	return (ft_substr(str, start, len));
 }
 

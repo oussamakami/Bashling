@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/07 09:27:54 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 08:07:00 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,13 @@ static int	next_variable(char *str, int index)
 		dquotes += (!(squotes & 1) && str[i] == '"');
 		squotes += (!(dquotes & 1) && str[i] == '\'');
 	}
-	while ((str[i] && (str[i] != '$' || (squotes & 1)))
-		|| (str[i] == '$' && !(squotes & 1)
-			&& ft_strchr("\t ><;\"|'$", str[i + 1])))
+	while (str[i] && ((squotes & 1) || (str[i] != '$')))
 	{
 		dquotes += (!(squotes & 1) && str[i] == '"');
 		squotes += (!(dquotes & 1) && str[i] == '\'');
 		i++;
 	}
-	if (str[i] == '$')
+	if (str[i] == '$' && !ft_strchr("\t $|<>;\"", str[i+1]))
 		return (i);
 	return (-1);
 }
@@ -53,6 +51,25 @@ static char	*get_variable_name(char *str, int index)
 	return (ft_substr(str, index, i - index));
 }
 
+static char *skip_and_replace(char *str, char *w0, char *w1, int count)
+{
+	char	*tmp0;
+	char	*tmp1;
+	char	*result;
+	
+	if (!str)
+		return (NULL);
+	tmp0 = ft_substr(str, 0, count);
+	tmp1 = ft_substr(str, count, ft_strlen(str));
+	tmp1 = replace_word(tmp1, w0, w1, 1);
+	result = ft_strjoin(tmp0, tmp1);
+	free(tmp0);
+	free(tmp1);
+	free(str);
+	free(w0);
+	return (result);
+}
+
 char	*replace_variables(char *str, int err)
 {
 	int		var_index;
@@ -67,15 +84,14 @@ char	*replace_variables(char *str, int err)
 		var_name = get_variable_name(result, var_index);
 		temp = replace_all_words(var_name, "$", NULL, 0);
 		if (ft_strncmp("$?", var_name, 3))
-			result = replace_word(result, var_name, fetch(temp), 1);
+			result = skip_and_replace(result, var_name, fetch(temp), var_index);
 		else
 		{
 			free(temp);
 			temp = ft_itoa(err);
-			result = replace_word(result, var_name, temp, 1);
+			result = skip_and_replace(result, var_name, temp, var_index);
 		}
 		free(temp);
-		free(var_name);
 		var_index = next_variable(result, 0);
 	}
 	return (result);
