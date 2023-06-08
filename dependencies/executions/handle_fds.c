@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 05:42:45 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/06 06:34:02 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/08 16:21:29 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,19 @@ static void	handle_outred(char *file, int append)
 	close(fd);
 }
 
-static void	handle_inred(char *file, int useheredoc)
+static void	handle_inred(char *file, int useheredoc, char *heredoc_data)
 {
+	int		pfd[2];
 	int		fd;
 	char	*tmp;
 
 	if (useheredoc)
-		fd = open(file, O_RDONLY);
+	{
+		pipe(pfd);
+		write(pfd[1], heredoc_data, ft_strlen(heredoc_data));
+		close(pfd[1]);
+		fd = pfd[0];
+	}
 	else
 		fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -85,14 +91,14 @@ void	handle_redir(t_cmd *cmd)
 			if (!ft_strncmp(">", cmd->redir_sym[i], 1))
 				handle_outred(cmd->redir_files[i], 0);
 			else if (!ft_strncmp("<", cmd->redir_sym[i], 1))
-				handle_inred(cmd->redir_files[i], 0);
+				handle_inred(cmd->redir_files[i], 0, NULL);
 		}
 		else if (ft_strlen(cmd->redir_sym[i]) == 2)
 		{
 			if (!ft_strncmp(">>", cmd->redir_sym[i], 2))
 				handle_outred(cmd->redir_files[i], 1);
 			else if (!ft_strncmp("<<", cmd->redir_sym[i], 2))
-				handle_inred(cmd->redir_files[i], 1);
+				handle_inred(cmd->redir_files[i], 1, cmd->heredoc_data);
 		}
 	}
 }

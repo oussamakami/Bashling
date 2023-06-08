@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/07 09:54:04 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/08 16:04:37 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct cmd_data
 	char			**redir_files;
 	char			**redir_sym;
 	char			*sep;
+	char			*heredoc_data;
 	int				error;
 	int				prev_error;
 	pid_t			process_id;

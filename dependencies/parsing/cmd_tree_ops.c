@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:52:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 03:13:43 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/08 16:17:29 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,8 @@ t_cmd	*allocate_cmd_node(char *whole_command)
 {
 	t_cmd	*result;
 
-	result = malloc(sizeof(t_cmd));
+	result = ft_calloc(1, sizeof(t_cmd));
 	result->cmd = whole_command;
-	result->exec = NULL;
-	result->args = NULL;
-	result->redir_files = NULL;
-	result->redir_sym = NULL;
-	result->sep = NULL;
-	result->error = 0;
-	result->prev_error = 0;
-	result->next = NULL;
 	return (result);
 }
 
@@ -93,6 +85,7 @@ void	erase_cmd_node(t_cmd *cmd_pointer)
 		free2d((void **)cmd_pointer->redir_files);
 		free2d((void **)cmd_pointer->redir_sym);
 		free(cmd_pointer->sep);
+		free(cmd_pointer->heredoc_data);
 		free(cmd_pointer);
 	}
 }
