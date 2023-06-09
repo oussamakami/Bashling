@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:07:33 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 04:07:34 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 08:26:48 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@
 # include "dependencies/executions/executions.h"
 # include "signal.h"
 
+void	sig_handler(int sign);
 #endif

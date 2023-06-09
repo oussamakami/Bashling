@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/07 10:20:07 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 08:48:35 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ static void	execute_cmd(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2])
 {
 	pid_t		pid;
 
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 		perror("fork: ");
 	cmd->process_id = pid;
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		if (!cmd->error)
 			execute_process(cmd, pfd, red, newpfd);
 		exit(cmd->error);
@@ -61,8 +63,11 @@ void	run_commands(t_cmd *cmd)
 	else
 		execute_cmd(cmd, NULL, (int [2]){0, 0}, NULL);
 	wait(&status);
-	if (!cmd->error && !is_builtin(cmd->exec))
+	if (WTERMSIG(status) == SIGINT)
+		cmd->error = 130;
+	else if (!cmd->error && !is_builtin(cmd->exec))
 		cmd->error = WEXITSTATUS(status);
+	signal(SIGINT, sig_handler);
 }
 
 static int	exec_pipes(t_cmd *cmds, int pfd[2], int oldpfd[2], int count)
@@ -111,9 +116,13 @@ static	void	extract_err_code(t_cmd *cmds, pid_t *pids)
 	while (pids[count])
 	{
 		waitpid(pids[count++], &status, 0);
-		cmds->error = WEXITSTATUS(status);
+		if (WTERMSIG(status) == SIGINT)
+			cmds->error = 130;
+		else
+			cmds->error = WEXITSTATUS(status);
 	}
 	free(pids);
+	signal(SIGINT, sig_handler);
 }
 
 t_cmd	*run_pipe_commands(t_cmd *cmds, int *err)

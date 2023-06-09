@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:48:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/06 05:52:01 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 08:27:12 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../libft/libft.h"
 # include "../modules/modules.h"
 # include "../parsing/parsing.h"
+# include "../../core.h"
 
 void	pwd(void);
 void	cd(t_cmd *cmd);
