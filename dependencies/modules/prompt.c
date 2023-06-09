@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:39 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/28 05:52:14 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 10:45:13 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,6 @@ char	*get_host_name(void)
 	if (buff && buff[ft_strlen(buff)-1] == '\n')
 		buff[ft_strlen(buff) - 1] = '\0';
 	return (buff);
-}
-
-char	*extract_branch(char *buff)
-{
-	int		i;
-	char	**temp;
-	char	*branch;
-
-	i = -1;
-	temp = ft_split(buff, '/');
-	free(buff);
-	while (temp[++i])
-		branch = temp[i];
-	branch[ft_strlen(branch)-1] = '\0';
-	branch = replace_all_words(" (b)", "b", branch, 0);
-	free2d((void **)temp);
-	return (branch);
 }
 
 char	*get_branch_name(void)

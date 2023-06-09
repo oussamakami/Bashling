@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:40:21 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/08 17:22:20 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 12:34:02 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*read_heredoc(char *str)
 	char	*buffer;
 	char	*result;
 	char	*tmp;
-	
+
 	result = ft_strdup("");
 	while (1)
 	{
@@ -78,25 +78,23 @@ static char	*read_heredoc(char *str)
 			free(result);
 			return (NULL);
 		}
-		if (ft_strlen(buffer) == ft_strlen(str) && !ft_strncmp(str, buffer, ft_strlen(str)))
+		if (ft_strlen(buffer) == ft_strlen(str)
+			&& !ft_strncmp(str, buffer, ft_strlen(str)))
 		{
 			free(buffer);
-			break ;
+			return (result);
 		}
 		tmp = ft_strjoin(result, buffer);
 		free(result);
-		result = tmp;
-		tmp = ft_strjoin(result, "\n");
-		free(result);
-		result = tmp;
+		result = ft_strjoin(tmp, "\n");
+		free(tmp);
 		free(buffer);
 	}
-	return (result);
 }
 
 static void	manage_heredoc(t_cmd *cmds)
 {
-	int i;
+	int		i;
 	t_cmd	*tmp;
 
 	tmp = cmds;
@@ -105,7 +103,8 @@ static void	manage_heredoc(t_cmd *cmds)
 		i = -1;
 		while (tmp->redir_sym && tmp->redir_sym[++i])
 		{
-			if (ft_strlen(tmp->redir_sym[i]) == 2 && !ft_strncmp("<<", tmp->redir_sym[i], 2))
+			if (ft_strlen(tmp->redir_sym[i]) == 2
+				&& !ft_strncmp("<<", tmp->redir_sym[i], 2))
 			{
 				free(tmp->heredoc_data);
 				tmp->heredoc_data = read_heredoc(tmp->redir_files[i]);

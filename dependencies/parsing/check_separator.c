@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:27 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/05 06:18:36 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 10:41:08 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,27 @@ static void	print_error(char *s)
 
 static char	*get_separator(char *str)
 {
-	int		index;
-	int		dquotes;
-	int		squotes;
+	int		index[3];
 	char	*result;
 
-	index = 0;
-	dquotes = 0;
-	squotes = 0;
+	index[0] = 0;
+	index[1] = 0;
+	index[2] = 0;
 	result = ft_calloc(3, 1);
 	while (str[0])
 	{
-		if ((!(dquotes & 1) && !(squotes & 1)))
+		if ((!(index[1] & 1) && !(index[2] & 1)))
 		{
 			if (str[1] && ft_strchr("<>", str[0]) && ft_strchr(";|", str[1]))
 				str++;
 			else if (ft_strchr(";|", str[0]))
 			{
-				result[index++] = str[0];
+				result[index[0]++] = str[0];
 				result = ft_realloc(result, ft_strlen(result) + 2);
 			}
 		}
-		dquotes += (!(squotes & 1) && str[0] == '"');
-		squotes += (!(dquotes & 1) && str[0] == '\'');
+		index[1] += (!(index[2] & 1) && str[0] == '"');
+		index[2] += (!(index[1] & 1) && str[0] == '\'');
 		str++;
 	}
 	return (result);

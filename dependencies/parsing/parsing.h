@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/08 16:04:37 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 10:26:57 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,15 +149,12 @@ char	*parse_exec(char *cmd, int *err);
  * @return char* Pointer to the new string.
  */
 char	*clean_quotes(char *str);
-
-
-
 /**
  * @brief Populates the redirection data in the t_cmd node.
  * 
  * @param cmd Reference to the t_cmd node.
  */
-int	parse_redir(t_cmd *cmd);
+int		parse_redir(t_cmd *cmd);
 void	parsing(t_cmd *cmd);
 char	*replace_variables(char *str, int err);
 t_cmd	*get_next_cmd(t_cmd *head, int *err);

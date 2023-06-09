@@ -9,11 +9,12 @@ MOD 		=	dependencies/modules/ft_realloc.c dependencies/modules/prompt.c\
 				dependencies/executions/list_env.c dependencies/executions/builtin_export.c\
 				dependencies/executions/handle_fds.c
 
-PARSING 	=	dependencies/parsing/cmd_tree_ops.c dependencies/parsing/parsing.c\
-				dependencies/parsing/input_split.c dependencies/parsing/check_separator.c\
-				dependencies/parsing/parse_args.c dependencies/parsing/extract_redirections.c\
-				dependencies/parsing/parse_redirections.c dependencies/parsing/replace_variables.c\
-				dependencies/parsing/parse_exec.c dependencies/parsing/is_builtin.c
+PARSING 	=	dependencies/parsing/cmd_tree_ops.c dependencies/parsing/cmd_tree_ops1.c\
+				dependencies/parsing/parsing.c dependencies/parsing/input_split.c\
+				dependencies/parsing/check_separator.c dependencies/parsing/parse_args.c\
+				dependencies/parsing/extract_redirections.c dependencies/parsing/parse_redirections.c\
+				dependencies/parsing/replace_variables.c dependencies/parsing/parse_exec.c\
+				dependencies/parsing/is_builtin.c
 CFILES		=	core.c
 PARSINGOBJ	=	$(PARSING:.c=.o)
 COBJS		=	$(CFILES:.c=.o)

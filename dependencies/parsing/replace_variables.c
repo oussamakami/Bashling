@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 08:07:00 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 10:24:45 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	next_variable(char *str, int index)
 		squotes += (!(dquotes & 1) && str[i] == '\'');
 		i++;
 	}
-	if (str[i] == '$' && !ft_strchr("\t $|<>;\"", str[i+1]))
+	if (str[i] == '$' && !ft_strchr("\t $|<>;\"", str[i + 1]))
 		return (i);
 	return (-1);
 }
@@ -51,12 +51,12 @@ static char	*get_variable_name(char *str, int index)
 	return (ft_substr(str, index, i - index));
 }
 
-static char *skip_and_replace(char *str, char *w0, char *w1, int count)
+static char	*skip_and_replace(char *str, char *w0, char *w1, int count)
 {
 	char	*tmp0;
 	char	*tmp1;
 	char	*result;
-	
+
 	if (!str)
 		return (NULL);
 	tmp0 = ft_substr(str, 0, count);

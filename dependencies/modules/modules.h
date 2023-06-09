@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:49:02 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/01 04:48:37 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 12:35:22 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	destory_all_env(t_env *head);
 char	*fetch(char *var_name);
 void	env_init(int argc, char **argv, char **env);
 char	**export_env(void);
+char	*extract_branch(char *buff);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/06 06:36:04 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 10:36:44 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,28 +62,25 @@ static int	check_redir(t_cmd *cmd)
 
 int	parse_redir(t_cmd *cmd)
 {
-	int		index0;
-	int		index1;
+	int		i[2];
 	int		length;
 	char	**redi_extracted;
 
 	while (cmd)
 	{
-		index0 = 0;
-		index1 = 0;
+		i[0] = 0;
+		i[1] = 0;
 		redi_extracted = extract_redir(cmd->cmd);
 		length = ft_atoi(redi_extracted[0]);
-		free(redi_extracted[0]);
 		init_redi_arg(cmd, length / 2);
-		while (++index0 <= length)
+		while (++i[0] <= length)
 		{
-			if (index0 % 2)
-				cmd->redir_sym[index1] = clean_quotes(redi_extracted[index0]);
+			if (i[0] % 2)
+				cmd->redir_sym[i[1]] = clean_quotes(redi_extracted[i[0]]);
 			else
-				cmd->redir_files[index1++] = clean_quotes(redi_extracted[index0]);
-			free(redi_extracted[index0]);
+				cmd->redir_files[i[1]++] = clean_quotes(redi_extracted[i[0]]);
 		}
-		free(redi_extracted);
+		free2d((void **)redi_extracted);
 		if (check_redir(cmd))
 			return (1);
 		cmd = cmd->next;
