@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 03:06:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/05/31 00:44:24 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 14:51:02 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,19 @@ void	sig_handler(int sign)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay(); 
+		rl_redisplay();
+	}
+}
+
+void	struct_execution(t_cmd *head, int *err)
+{
+	while (head)
+	{
+		if (head->sep && head->sep[0] == '|')
+			head = run_pipe_commands(head, err);
+		else
+			run_commands(head);
+		head = get_next_cmd(head, err);
 	}
 }
 
@@ -46,14 +58,7 @@ int	main(int argc, char **argv, char **env)
 			cmds->prev_error = err;
 		parsing(cmds);
 		free(input);
-		while (cmds)
-		{
-			if (cmds->sep && cmds->sep[0] == '|')
-				cmds = run_pipe_commands(cmds, &err);
-			else
-				run_commands(cmds);
-			cmds = get_next_cmd(cmds, &err);
-		}
+		struct_execution(cmds, &err);
 	}
 	return (0);
 }

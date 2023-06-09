@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:48:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 08:27:12 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 14:26:34 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	run_commands(t_cmd *cmd);
 t_cmd	*run_pipe_commands(t_cmd *cmds, int *err);
 void	handle_redir(t_cmd *cmd);
 void	handle_fds(int pfd[2], int red[2], int newpfd[2]);
+void	execute_cmd(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2]);
 
 #endif
