@@ -17,7 +17,7 @@ PARSING 	=	dependencies/parsing/cmd_tree_ops.c dependencies/parsing/cmd_tree_ops
 				dependencies/parsing/check_separator.c dependencies/parsing/parse_args.c\
 				dependencies/parsing/extract_redirections.c dependencies/parsing/parse_redirections.c\
 				dependencies/parsing/replace_variables.c dependencies/parsing/parse_exec.c\
-				dependencies/parsing/is_builtin.c
+				dependencies/parsing/is_builtin.c dependencies/parsing/heredoc.c
 
 CFILES		=	core.c
 PARSINGOBJ	=	$(PARSING:.c=.o)

@@ -6,13 +6,14 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 10:26:57 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 16:51:58 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+# include <signal.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
@@ -158,5 +159,6 @@ int		parse_redir(t_cmd *cmd);
 void	parsing(t_cmd *cmd);
 char	*replace_variables(char *str, int err);
 t_cmd	*get_next_cmd(t_cmd *head, int *err);
+void	manage_heredoc(t_cmd *cmds);
 
 #endif

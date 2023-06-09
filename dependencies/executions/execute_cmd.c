@@ -6,11 +6,12 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 14:24:16 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 17:33:57 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executions.h"
+#include "../../core.h"
 
 static void	execute_process(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2])
 {

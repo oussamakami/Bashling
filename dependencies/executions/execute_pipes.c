@@ -6,11 +6,12 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:14:47 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 14:24:04 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 17:33:47 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executions.h"
+#include "../../core.h"
 
 static int	exec_pipes(t_cmd *cmds, int pfd[2], int oldpfd[2], int count)
 {
