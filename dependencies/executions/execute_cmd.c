@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 08:48:35 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/09 13:29:05 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ void	run_commands(t_cmd *cmd)
 	else
 		execute_cmd(cmd, NULL, (int [2]){0, 0}, NULL);
 	wait(&status);
-	if (WTERMSIG(status) == SIGINT)
-		cmd->error = 130;
-	else if (!cmd->error && !is_builtin(cmd->exec))
+	if (!cmd->error && !is_builtin(cmd->exec))
+	{
 		cmd->error = WEXITSTATUS(status);
+		if (WTERMSIG(status) == SIGINT)
+			cmd->error = 130;
+	}
 	signal(SIGINT, sig_handler);
 }
 
@@ -116,10 +118,9 @@ static	void	extract_err_code(t_cmd *cmds, pid_t *pids)
 	while (pids[count])
 	{
 		waitpid(pids[count++], &status, 0);
+		cmds->error = WEXITSTATUS(status);
 		if (WTERMSIG(status) == SIGINT)
 			cmds->error = 130;
-		else
-			cmds->error = WEXITSTATUS(status);
 	}
 	free(pids);
 	signal(SIGINT, sig_handler);
