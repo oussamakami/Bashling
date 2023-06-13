@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 10:36:44 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/13 15:19:59 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int	parse_redir(t_cmd *cmd)
 			if (i[0] % 2)
 				cmd->redir_sym[i[1]] = clean_quotes(redi_extracted[i[0]]);
 			else
-				cmd->redir_files[i[1]++] = clean_quotes(redi_extracted[i[0]]);
+				cmd->redir_files[i[1]++] = replace_word(clean_quotes(
+							redi_extracted[i[0]]), "~", fetch("HOME"), 1);
 		}
 		free2d((void **)redi_extracted);
 		if (check_redir(cmd))
