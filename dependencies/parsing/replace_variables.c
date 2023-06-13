@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 10:24:45 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/13 14:59:26 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,28 @@ static char	*skip_and_replace(char *str, char *w0, char *w1, int count)
 	return (result);
 }
 
+static char	*clean_unused_var_sym(char *str)
+{
+	int	i;
+	int	dquotes;
+	int	squotes;
+
+	i = -1;
+	dquotes = 0;
+	squotes = 0;
+	while (str[++i])
+	{
+		dquotes += (!(squotes & 1) && str[i] == '"');
+		squotes += (!(dquotes & 1) && str[i] == '\'');
+		if (str[i] == '$' && !(squotes & 1))
+		{
+			if ((str[i + 1] == '"' || str[i + 1] == '\'') && !(dquotes & 1))
+				str = skip_and_replace(str, ft_strdup("$"), NULL, --i);
+		}
+	}
+	return (str);
+}
+
 char	*replace_variables(char *str, int err)
 {
 	int		var_index;
@@ -77,7 +99,7 @@ char	*replace_variables(char *str, int err)
 	char	*temp;
 	char	*result;
 
-	result = ft_strdup(str);
+	result = clean_unused_var_sym(ft_strdup(str));
 	var_index = next_variable(result, 0);
 	while (var_index != -1)
 	{
