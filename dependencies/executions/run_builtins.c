@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/06 07:37:42 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/13 15:59:25 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,26 @@ void	cd(t_cmd *cmd)
 	char	*temp;
 	char	*path;
 
-	path = cmd->args[1];
-	if (path && cmd->args[2])
+	if (cmd->args[1] && cmd->args[2])
 	{
 		ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
 		cmd->error = 1;
 		return ;
 	}
-	if (!path)
-		path = fetch("HOME");
-	if (ft_strlen(path) == 1 && path[0] == '-')
-		path = fetch("OLDPWD");
+	if (!cmd->args[1])
+		path = ft_strdup(fetch("HOME"));
+	else if (ft_strlen(cmd->args[1]) == 1 && cmd->args[1][0] == '-')
+		path = ft_strdup(fetch("OLDPWD"));
+	else
+		path = replace_word(ft_strdup(cmd->args[1]), "~", fetch("HOME"), 1);
 	temp = getcwd(NULL, 0);
-	if (!temp)
-		perror("Minishell: cd");
-	path = replace_word(path, "~", fetch("HOME"), 0);
 	if (chdir(path))
 	{
 		perror("Minishell: cd");
 		cmd->error = 1;
 	}
 	g_env = add_env(g_env, "OLDPWD", temp);
+	free(path);
 	free(temp);
 }
 
