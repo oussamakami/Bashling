@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 01:43:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 03:11:33 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/15 08:05:27 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ static int	check_arg_name(char *arg)
 	return (0);
 }
 
-static char	*env_name(char *str, int *err)
+static char	*env_name(char *str, int *err, int *code)
 {
 	int		i;
 	char	*tmp;
 
 	i = -1;
-	if (*err)
-		return (NULL);
 	while (str && str[++i])
 		if (str[i] == '=')
 			break ;
@@ -66,15 +64,17 @@ static char	*env_name(char *str, int *err)
 		if (!i)
 			i++;
 		tmp = ft_substr(str, 0, i);
-		*err = check_arg_name(tmp);
-		if (!*err)
+		*code = check_arg_name(tmp);
+		if (*code && !*err)
+			*err = 1;
+		if (!*code)
 			return (tmp);
 		free(tmp);
 	}
 	return (NULL);
 }
 
-static char	*env_val(char *str, int *err)
+static char	*env_val(char *str, int code)
 {
 	int	i;
 	int	start;
@@ -82,7 +82,7 @@ static char	*env_val(char *str, int *err)
 
 	i = -1;
 	len = 0;
-	if (*err)
+	if (code)
 		return (NULL);
 	while (str && str[++i])
 		if (str[i] == '=')
@@ -96,6 +96,7 @@ static char	*env_val(char *str, int *err)
 void	run_export(t_cmd *cmd)
 {
 	int		i;
+	int		code;
 	char	*name;
 	char	*value;
 
@@ -104,15 +105,10 @@ void	run_export(t_cmd *cmd)
 	i = 0;
 	while (cmd->args[++i])
 	{
-		name = env_name(cmd->args[i], &cmd->error);
-		value = env_val(cmd->args[i], &cmd->error);
-		if (cmd->error)
-		{
-			free(name);
-			free(value);
-			return ;
-		}
-		g_env = add_env(g_env, name, value);
+		name = env_name(cmd->args[i], &cmd->error, &code);
+		value = env_val(cmd->args[i], code);
+		if (name)
+			g_env = add_env(g_env, name, value);
 		free(name);
 		free(value);
 	}
