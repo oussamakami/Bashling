@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 01:43:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/15 08:05:27 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/15 19:13:39 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ static char	*env_val(char *str, int code)
 	start = i + 1;
 	while (str && str[++i])
 		len++;
+	if (!len)
+		return (NULL);
 	return (ft_substr(str, start, len));
 }
 

@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:54:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/01 02:05:39 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/15 19:14:37 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ t_env	*add_env(t_env *head, char *name, char *value)
 	tmp = find_env(head, name);
 	if (tmp)
 	{
-		free(tmp->value);
-		tmp->value = NULL;
 		if (value)
+		{
+			free(tmp->value);
 			tmp->value = ft_strdup(value);
-		tmp->hide = 0;
+			tmp->hide = 0;
+		}
 		return (head);
 	}
 	new = ft_calloc(1, sizeof(t_env));
