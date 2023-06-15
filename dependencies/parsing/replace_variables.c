@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/15 20:55:31 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/15 21:09:12 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ char	*replace_variables(char *str, int err)
 	{
 		var_name = get_variable_name(result, var_index);
 		temp = replace_all_words(var_name, "$", NULL, 0);
-		if (ft_strncmp("$?", var_name, 3))
+		if (ft_strncmp("$?", var_name, 3) && temp[0])
 			result = skip_and_replace(result, var_name, fetch(temp), var_index);
-		else
+		else if (temp[0])
 		{
 			free(temp);
 			temp = ft_itoa(err);
