@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/13 15:59:25 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/15 07:42:58 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,20 @@ void	cd(t_cmd *cmd)
 void	echo(t_cmd *cmd)
 {
 	int		i;
+	int		j;
 	int		new_line;
 
 	i = 1;
 	new_line = 0;
 	while (cmd->args[i] && cmd->args[i][0] == '-')
 	{
-		if (ft_strlen(cmd->args[i]) == 2 && !ft_strncmp("-n", cmd->args[i], 2))
+		j = 1;
+		while (cmd->args[i][j] && cmd->args[i][j] == 'n')
+			j++;
+		if (j > 1 && !cmd->args[i][j])
 			new_line = 1;
+		else
+			break ;
 		i++;
 	}
 	while (cmd->args[i])
