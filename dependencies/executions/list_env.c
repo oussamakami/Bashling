@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:53:11 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/01 01:56:43 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/15 21:12:08 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	list_env(void)
 	temp = g_env;
 	while (temp)
 	{
-		if (!temp->hide)
+		if (!temp->hide && temp->value)
 			printf("%s=%s\n", temp->name, temp->value);
 		temp = temp->next;
 	}
