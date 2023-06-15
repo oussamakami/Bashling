@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 00:26:37 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/07 11:25:06 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/15 04:28:38 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	extract_err_code(char *code)
 		if (code[i] < '0' || code[i] > '9')
 		{
 			ft_putstr_fd("Minishell: exit: numeric argument required\n", 2);
-			return (2);
+			return (255);
 		}
 	}
 	err = 0;
@@ -62,7 +62,7 @@ static int	extract_err_code(char *code)
 	if (err)
 	{
 		ft_putstr_fd("Minishell: exit: numeric argument required\n", 2);
-		return (2);
+		return (255);
 	}
 	return ((size_t)i % 256);
 }
