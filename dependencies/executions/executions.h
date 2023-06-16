@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:48:10 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/16 14:52:59 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/16 16:03:38 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ t_cmd	*run_pipe_commands(t_cmd *cmds, int *err);
  * @brief Redirect data file descriptors according to the specified redirections.
  * 
  * @param cmd Reference to the command node.
+ * @return int Error code.
  */
-void	handle_redir(t_cmd *cmd);
+int		handle_redir(t_cmd *cmd);
 /**
  * @brief Redirect data file descriptors according to the pipe file descriptors.
  * 

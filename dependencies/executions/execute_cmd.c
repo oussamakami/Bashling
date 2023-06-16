@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:47:23 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 17:33:57 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:59:57 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static void	execute_process(t_cmd *cmd, int pfd[2], int red[2], int newpfd[2])
 	char	**env;
 
 	handle_fds(pfd, red, newpfd);
-	handle_redir(cmd);
+	cmd->error = handle_redir(cmd);
+	if (cmd->error)
+		exit(cmd->error);
 	if (is_builtin(cmd->exec))
 		run_builtins(cmd);
 	else if (cmd->exec)
@@ -56,7 +58,7 @@ void	run_commands(t_cmd *cmd)
 	{
 		hold_std[0] = dup(0);
 		hold_std[1] = dup(1);
-		handle_redir(cmd);
+		cmd->error = handle_redir(cmd);
 		run_builtins(cmd);
 		dup2(hold_std[0], 0);
 		dup2(hold_std[1], 1);

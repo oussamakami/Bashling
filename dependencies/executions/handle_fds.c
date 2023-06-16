@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 05:42:45 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/08 16:21:29 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/16 16:02:00 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	handle_fds(int pfd[2], int red[2], int newpfd[2])
 	}
 }
 
-static void	handle_outred(char *file, int append)
+static int	handle_outred(char *file, int append)
 {
 	int		fd;
 	char	*tmp;
@@ -47,13 +47,14 @@ static void	handle_outred(char *file, int append)
 		tmp = replace_word("Minishell: file", "file", file, 0);
 		perror(tmp);
 		free(tmp);
-		exit(1);
+		return (1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (0);
 }
 
-static void	handle_inred(char *file, int useheredoc, char *heredoc_data)
+static int	handle_inred(char *file, int useheredoc, char *heredoc_data)
 {
 	int		pfd[2];
 	int		fd;
@@ -73,32 +74,37 @@ static void	handle_inred(char *file, int useheredoc, char *heredoc_data)
 		tmp = replace_word("Minishell: file", "file", file, 0);
 		perror(tmp);
 		free(tmp);
-		exit(1);
+		return (1);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
+	return (0);
 }
 
-void	handle_redir(t_cmd *cmd)
+int	handle_redir(t_cmd *cmd)
 {	
 	int	i;
+	int	result;
 
 	i = -1;
-	while (cmd->redir_sym[++i])
+	result = 0;
+	while (cmd->redir_sym[++i] && !result)
 	{
 		if (ft_strlen(cmd->redir_sym[i]) == 1)
 		{
 			if (!ft_strncmp(">", cmd->redir_sym[i], 1))
-				handle_outred(cmd->redir_files[i], 0);
+				result = handle_outred(cmd->redir_files[i], 0);
 			else if (!ft_strncmp("<", cmd->redir_sym[i], 1))
-				handle_inred(cmd->redir_files[i], 0, NULL);
+				result = handle_inred(cmd->redir_files[i], 0, NULL);
 		}
 		else if (ft_strlen(cmd->redir_sym[i]) == 2)
 		{
 			if (!ft_strncmp(">>", cmd->redir_sym[i], 2))
-				handle_outred(cmd->redir_files[i], 1);
+				result = handle_outred(cmd->redir_files[i], 1);
 			else if (!ft_strncmp("<<", cmd->redir_sym[i], 2))
-				handle_inred(cmd->redir_files[i], 1, cmd->heredoc_data);
+				result = handle_inred(cmd->redir_files[i],
+						1, cmd->heredoc_data);
 		}
 	}
+	return (result);
 }

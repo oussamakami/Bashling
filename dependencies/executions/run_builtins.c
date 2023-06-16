@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:48:06 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/15 07:42:58 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:57:59 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	run_builtins(t_cmd *cmd)
 	int	len;
 
 	len = ft_strlen(cmd->exec);
+	if (cmd->error)
+		return ;
 	if (len == 2 && !ft_strncmp("cd", cmd->exec, 2))
 		cd(cmd);
 	if (len == 3 && !ft_strncmp("pwd", cmd->exec, 3))
