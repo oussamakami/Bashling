@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:41:39 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 10:45:13 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/16 18:25:14 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,29 @@ char	*get_host_name(void)
 char	*get_branch_name(void)
 {
 	int		fd;
-	char	*buff;
+	char	**temp;
+	char	*result;
 
-	buff = NULL;
+	result = NULL;
 	fd = open(".git/HEAD", O_RDONLY);
 	if (fd > 0)
 	{
-		buff = ft_calloc(1024, 1);
-		read(fd, buff, 1024);
+		result = ft_calloc(1024, 1);
+		read(fd, result, 1024);
+		close(fd);
 	}
-	close(fd);
-	if (buff)
-		return (extract_branch(buff));
-	return (NULL);
+	if (result)
+	{
+		fd = -1;
+		temp = ft_split(result, '/');
+		free(result);
+		while (temp[++fd])
+			result = temp[fd];
+		result[ft_strlen(result) - 1] = '\0';
+		result = replace_all_words(" (b)", "b", result, 0);
+		free2d((void **)temp);
+	}
+	return (result);
 }
 
 char	*prompt_msg(void)

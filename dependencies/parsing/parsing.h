@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 00:50:54 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 16:51:58 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/16 20:59:41 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,32 @@ char	*clean_quotes(char *str);
  * @param cmd Reference to the t_cmd node.
  */
 int		parse_redir(t_cmd *cmd);
+/**
+ * @brief Populates all elements in the t_cmd node.
+ * 
+ * @param cmd Reference to the t_cmd node.
+ */
 void	parsing(t_cmd *cmd);
+/**
+ * @brief Replace all environment variables in a string
+ * with their respective values.
+ * 
+ * @param str Pointer to the string.
+ * @param err The error code of the last command,
+ * which will be used to replace the variable "$?".
+ * @return char* Pointer to a new string with the environment variables
+ * replaced by their corresponding values.
+ */
 char	*replace_variables(char *str, int err);
+/**
+ * @brief Delete the current node and obtain the next
+ * command node with all data fields populated.
+ * 
+ * @param head Reference to the t_cmd node.
+ * @param err Storage location for the error code
+ * of the last command node in the t_cmd.
+ * @return t_cmd* The subsequent command node.
+ */
 t_cmd	*get_next_cmd(t_cmd *head, int *err);
 void	manage_heredoc(t_cmd *cmds);
 
