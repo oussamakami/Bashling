@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -g
+CFLAGS		=	-Wall -Wextra -Werror -g
 RM			=	rm -rf
 
 EXEC		=	dependencies/executions/builtin_export.c dependencies/executions/close_prgm.c\
