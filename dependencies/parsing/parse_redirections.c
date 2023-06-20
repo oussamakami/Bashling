@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:05 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/13 15:19:59 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/20 18:21:08 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ static char	*extract_err_sym(char *sym)
 	return (sym);
 }
 
+static char	*check_redi_file(char *file)
+{
+	char	*result;
+
+	result = NULL;
+	if (!ft_strlen(file))
+		result = "newline";
+	else if (ft_strchr(file, '<'))
+		result = "<";
+	else if (ft_strchr(file, '>'))
+		result = ">";
+	return (result);
+}
+
 static int	check_redir(t_cmd *cmd)
 {
 	int		i;
@@ -44,10 +58,7 @@ static int	check_redir(t_cmd *cmd)
 		len = ft_strlen(cmd->redir_sym[i]);
 		if (len <= 2 && (!ft_strncmp("<<", cmd->redir_sym[i], len)
 				|| !ft_strncmp(">>", cmd->redir_sym[i], len)))
-		{
-			if (!ft_strlen(cmd->redir_files[i]))
-				tmp = "newline";
-		}
+			tmp = check_redi_file(cmd->redir_files[i]);
 		else
 			tmp = extract_err_sym(cmd->redir_sym[i]);
 	}
