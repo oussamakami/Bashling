@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:42:17 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/15 21:09:12 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:33:18 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	*clean_unused_var_sym(char *str)
 		if (str[i] == '$' && !(squotes & 1))
 		{
 			if ((str[i + 1] == '"' || str[i + 1] == '\'') && !(dquotes & 1))
-				str = skip_and_replace(str, ft_strdup("$"), NULL, --i);
+				str = skip_and_replace(str, ft_strdup("$"), NULL, i--);
 		}
 	}
 	return (str);
