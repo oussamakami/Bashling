@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:11:48 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 17:31:26 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/20 18:29:30 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,26 @@ static char	*extract_data(int pfd[2])
 	return (result);
 }
 
+static void	heredoc_child_work(char *str, int pfd[2])
+{
+	char	*tmp0;
+	char	*tmp1;
+
+	signal(SIGINT, SIG_DFL);
+	close(pfd[0]);
+	tmp0 = read_heredoc(str);
+	tmp1 = ft_itoa(ft_strlen(tmp0));
+	write(pfd[1], tmp1, ft_strlen(tmp1));
+	write(pfd[1], tmp0, ft_strlen(tmp0));
+	close(pfd[1]);
+	free(tmp0);
+	free(tmp1);
+	exit(0);
+}
+
 static char	*run_heredoc(char *str, int *err)
 {
 	int		pfd[2];
-	char	*tmp0;
-	char	*tmp1;
 	int		status;
 	pid_t	child;
 
@@ -79,18 +94,7 @@ static char	*run_heredoc(char *str, int *err)
 	signal(SIGINT, SIG_IGN);
 	child = fork();
 	if (!child)
-	{
-		signal(SIGINT, SIG_DFL);
-		close(pfd[0]);
-		tmp0 = read_heredoc(str);
-		tmp1 = ft_itoa(ft_strlen(tmp0));
-		write(pfd[1], tmp1, ft_strlen(tmp1));
-		write(pfd[1], tmp0, ft_strlen(tmp0));
-		close(pfd[1]);
-		free(tmp0);
-		free(tmp1);
-		exit(0);
-	}
+		heredoc_child_work(str, pfd);
 	wait(&status);
 	signal(SIGINT, sig_handler);
 	*err = WEXITSTATUS(status);
