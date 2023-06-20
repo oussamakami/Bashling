@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 03:06:38 by okamili           #+#    #+#             */
-/*   Updated: 2023/06/09 14:51:02 by okamili          ###   ########.fr       */
+/*   Updated: 2023/06/20 17:49:26 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **env)
 
 	env_init(argc, argv, env);
 	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	err = 0;
 	while (1)
 	{
