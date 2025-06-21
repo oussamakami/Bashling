@@ -200,4 +200,4 @@ ubuntu@dev-server:~/bashling (master)$ exit
 
 ## 📝 License
 
-This Project Is Licensed Under &copy; [**MIT License**](https://github.com/oussamakami/minishell/blob/master/LICENSE)
+This Project Is Licensed Under &copy; [**MIT License**](https://github.com/oussamakami/bashling/blob/master/LICENSE)
