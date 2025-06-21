@@ -172,11 +172,13 @@ ubuntu@dev-server:~/bashling (master)$ echo "foo bar" | tr a-z A-Z | rev
 RAB OOF
 
 ubuntu@dev-server:~/bashling (master)$ cat << EOF
->This is a heredoc
->With multiple lines
+> This is a heredoc
+> With multiple lines
+> and $HOME expansion
 EOF
 This is a heredoc
 With multiple lines
+and /home/ubuntu expansion
 
 ubuntu@dev-server:~/bashling (master)$ env | grep HOME
 HOME=/home/ubuntu

@@ -22,7 +22,7 @@ static char	*read_heredoc(char *str)
 	result = ft_strdup("");
 	while (1)
 	{
-		buffer = readline(">");
+		buffer = readline("> ");
 		if (!buffer)
 		{
 			free(result);
@@ -54,6 +54,11 @@ static char	*extract_data(int pfd[2])
 	data[0] = ft_calloc(10, 1);
 	read(pfd[0], data[0], 9);
 	len = ft_atoi(data[0]);
+	if (!len) {
+		close(pfd[0]);
+		free(data[0]);
+		return ft_strdup("");
+	}
 	while (data[0][index] >= '0' && data[0][index] <= '9')
 		index++;
 	data[0] += index;
@@ -118,8 +123,7 @@ void	manage_heredoc(t_cmd *cmds)
 				&& !ft_strncmp("<<", tmp->redir_sym[i], 2))
 			{
 				free(tmp->heredoc_data);
-				tmp->heredoc_data = run_heredoc(tmp->redir_files[i],
-						&(tmp->error));
+				tmp->heredoc_data = replace_variables(run_heredoc(tmp->redir_files[i], &(tmp->error)), &(tmp->error));
 			}
 		}
 		tmp = tmp->next;
