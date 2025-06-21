@@ -63,12 +63,12 @@ static int	check_input(char *cmd)
 
 	if (cmd && cmd[0] == '.' && ft_strlen(cmd) == 1)
 	{
-		ft_putstr_fd("Minishell: .: Filename argument required\n", 2);
+		ft_putstr_fd("Bashling: .: Filename argument required\n", 2);
 		return (2);
 	}
 	if (cmd && cmd[0] == '~' && ft_strlen(cmd) == 1)
 	{
-		temp = replace_word("Minishell: ~: Is a directory\n",
+		temp = replace_word("Bashling: ~: Is a directory\n",
 				"~", getenv("HOME"), 0);
 		ft_putstr_fd(temp, 2);
 		free(temp);
@@ -76,7 +76,7 @@ static int	check_input(char *cmd)
 	}
 	if (cmd && cmd[0] == '/' && ft_strlen(cmd) == 1)
 	{
-		ft_putstr_fd("Minishell: /: Is a directory\n", 2);
+		ft_putstr_fd("Bashling: /: Is a directory\n", 2);
 		return (126);
 	}
 	return (0);
@@ -91,19 +91,19 @@ void	print_error(char *cmd, char *path, int *err)
 	if (!*err && (!path || access(path, F_OK)))
 	{
 		*err = 127;
-		tmp = replace_word("Minishell: E: command not found\n", "E", cmd, 0);
+		tmp = replace_word("Bashling: E: command not found\n", "E", cmd, 0);
 	}
 	if (!*err && !tmp && !stat(path, &stats))
 	{
 		if (S_ISDIR(stats.st_mode))
 		{
 			*err = 126;
-			tmp = replace_word("Minishell: E: Is a directory\n", "E", cmd, 0);
+			tmp = replace_word("Bashling: E: Is a directory\n", "E", cmd, 0);
 		}
 		else if (access(path, X_OK))
 		{
 			*err = 126;
-			tmp = replace_word("Minishell: E: Permission denied\n", "E", cmd, 0);
+			tmp = replace_word("Bashling: E: Permission denied\n", "E", cmd, 0);
 		}
 	}
 	ft_putstr_fd(tmp, 2);

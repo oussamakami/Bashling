@@ -40,7 +40,7 @@ static int	check_arg_name(char *arg)
 				|| ((arg[i] >= '0' && arg[i] <= '9') && i)
 				|| arg[i] == '_'))
 		{
-			tmp = replace_word("Minishell: export: `X': "
+			tmp = replace_word("Bashling: export: `X': "
 					"not a valid identifier\n", "X", arg, 0);
 			ft_putstr_fd(tmp, 2);
 			free(tmp);

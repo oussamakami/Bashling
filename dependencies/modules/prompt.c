@@ -92,13 +92,13 @@ char	*prompt_msg(void)
 	host = get_host_name();
 	dir = get_work_dir();
 	branch = get_branch_name();
-	prompt = ft_strdup("\001\033[1;32m\002USER@Minishell"
+	prompt = ft_strdup("\001\033[1;32m\002USER@Bashling"
 			"\001\033[1;0m\002:\001\033[1;34m\002"
 			"D\001\033[1;35m\002B\001\033[1;0m\002$ ");
 	if (fetch("USER"))
 		prompt = replace_all_words(prompt, "USER", fetch("USER"), 1);
 	if (host)
-		prompt = replace_all_words(prompt, "Minishell", host, 1);
+		prompt = replace_all_words(prompt, "Bashling", host, 1);
 	free(host);
 	prompt = replace_all_words(prompt, "D", dir, 1);
 	free(dir);

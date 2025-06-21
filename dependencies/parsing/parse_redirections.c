@@ -64,7 +64,7 @@ static int	check_redir(t_cmd *cmd)
 	}
 	if (!tmp)
 		return (0);
-	tmp = replace_word("Minishell: syntax error near "
+	tmp = replace_word("Bashling: syntax error near "
 			"unexpected token `X'\n", "X", tmp, 0);
 	ft_putstr_fd(tmp, 2);
 	free(tmp);

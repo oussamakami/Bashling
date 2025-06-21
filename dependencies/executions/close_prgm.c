@@ -53,7 +53,7 @@ static int	extract_err_code(char *code)
 	{
 		if (code[i] < '0' || code[i] > '9')
 		{
-			ft_putstr_fd("Minishell: exit: numeric argument required\n", 2);
+			ft_putstr_fd("Bashling: exit: numeric argument required\n", 2);
 			return (255);
 		}
 	}
@@ -61,7 +61,7 @@ static int	extract_err_code(char *code)
 	i = parse_num(code, &err);
 	if (err)
 	{
-		ft_putstr_fd("Minishell: exit: numeric argument required\n", 2);
+		ft_putstr_fd("Bashling: exit: numeric argument required\n", 2);
 		return (255);
 	}
 	return ((size_t)i % 256);
@@ -75,7 +75,7 @@ void	close_prgm(t_cmd *cmd)
 		exit(0);
 	if (cmd->args[1] && cmd->args[2])
 	{
-		ft_putstr_fd("Minishell: exit: too many arguments\n", 2);
+		ft_putstr_fd("Bashling: exit: too many arguments\n", 2);
 		cmd->error = 1;
 		return ;
 	}

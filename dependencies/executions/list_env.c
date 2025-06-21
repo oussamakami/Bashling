@@ -25,7 +25,7 @@ static int	check_unset_arg(char *arg)
 				|| ((arg[i] >= '0' && arg[i] <= '9') && i)
 				|| arg[i] == '_'))
 		{
-			tmp = replace_word("Minishell: unset: `X': "
+			tmp = replace_word("Bashling: unset: `X': "
 					"not a valid identifier\n", "X", arg, 0);
 			ft_putstr_fd(tmp, 2);
 			free(tmp);

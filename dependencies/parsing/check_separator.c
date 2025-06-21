@@ -14,7 +14,7 @@
 
 static void	print_error(char *s)
 {
-	ft_putstr_fd("Minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd("Bashling: syntax error near unexpected token `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd("'\n", 2);
 }

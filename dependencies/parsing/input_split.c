@@ -34,7 +34,7 @@ static int	check_quotes(t_cmd *cmds)
 	{
 		if (check_quotes_loop(cmds->cmd))
 		{
-			ft_putstr_fd("Minishell: syntax error: Missing closing quote.\n", 2);
+			ft_putstr_fd("Bashling: syntax error: Missing closing quote.\n", 2);
 			return (1);
 		}
 		cmds = cmds->next;

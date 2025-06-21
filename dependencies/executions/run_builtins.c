@@ -20,7 +20,7 @@ void	pwd(void)
 	if (holder)
 		printf("%s\n", holder);
 	else
-		perror("Minishell: pwd");
+		perror("Bashling: pwd");
 	free(holder);
 }
 
@@ -31,7 +31,7 @@ void	cd(t_cmd *cmd)
 
 	if (cmd->args[1] && cmd->args[2])
 	{
-		ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
+		ft_putstr_fd("Bashling: cd: too many arguments\n", 2);
 		cmd->error = 1;
 		return ;
 	}
@@ -44,7 +44,7 @@ void	cd(t_cmd *cmd)
 	temp = getcwd(NULL, 0);
 	if (chdir(path))
 	{
-		perror("Minishell: cd");
+		perror("Bashling: cd");
 		cmd->error = 1;
 	}
 	g_env = add_env(g_env, "OLDPWD", temp);

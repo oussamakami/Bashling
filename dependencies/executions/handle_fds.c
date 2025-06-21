@@ -44,7 +44,7 @@ static int	handle_outred(char *file, int append)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd < 0)
 	{
-		tmp = replace_word("Minishell: file", "file", file, 0);
+		tmp = replace_word("Bashling: file", "file", file, 0);
 		perror(tmp);
 		free(tmp);
 		return (1);
@@ -71,7 +71,7 @@ static int	handle_inred(char *file, int useheredoc, char *heredoc_data)
 		fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		tmp = replace_word("Minishell: file", "file", file, 0);
+		tmp = replace_word("Bashling: file", "file", file, 0);
 		perror(tmp);
 		free(tmp);
 		return (1);
